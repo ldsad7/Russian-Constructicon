@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<style>
+	select {
+	    font-size: 29.5px !important;
+		text-align: center;
+		width: 158.4px;
+		border-width: 0px !important;
+		height: 100px;
+		background-color: #ff252b;
+		color: #fff851;
+		font-weight: bold;
+		outline: none;
+		display: inline;
+	}
+	option {
+		outline: none !important;
+	}
+	.js-example-basic-single {
+		text-align:center;
+	}
+	.btn-info {
+		background-color: #fff851 !important;
+		color: #ff252b !important;
+		border-width: 2px !important;
+		border-color: #ff252b !important;
+		font-weight: bold !important;
+	}
+	
+	
+	</style>
+	<meta charset="utf-8">
+	<title>Russian Constructicon</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Bootstrap CSS -->
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="shortcut icon" type="image/x-icon" href="static/pictures/rc.png">
+	
+	<script language="JavaScript">
+		function toggle1(source) {
+			checkboxes = document.getElementsByName('lMB');
+			for(var i=0, n=checkboxes.length; i<n; i++) {
+				checkboxes[i].checked = source.checked;
+			}
+		}
+		
+		function toggle2(source) {
+			checkboxes = document.getElementsByName('cefr');
+			for(var i=0, n=checkboxes.length; i<n; i++) {
+				checkboxes[i].checked = source.checked;
+			}
+		}
+		
+		function toggle3(source) {
+			checkboxes = document.getElementsByName('pos');
+			for(var i=0, n=checkboxes.length; i<n; i++) {
+				checkboxes[i].checked = source.checked;
+			}
+		}
+		
+		function toggle4(source) {
+			checkboxes = document.getElementsByName('role');
+			for(var i=0, n=checkboxes.length; i<n; i++) {
+				checkboxes[i].checked = source.checked;
+			}
+		}
+		
+		function toggle5(source) {
+			checkboxes = document.getElementsByName('aux');
+			for(var i=0, n=checkboxes.length; i<n; i++) {
+				checkboxes[i].checked = source.checked;
+			}
+		}
+        
+        function toggle6(source) {
+			checkboxes = document.getElementsByName('msd');
+			for(var i=0, n=checkboxes.length; i<n; i++) {
+				checkboxes[i].checked = source.checked;
+			}
+		}
+		
+	<!-- collapse9 -->
+    function appElem1() {
+		var div = document.createElement('div');
+		div.className = 'row';
+		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Type the lemmas comma separated:</span>';
+		text += '&nbsp;&nbsp;<input type="text" name="lemmas" style="font-size: 25px;height: 45px;" autocomplete="off">';
+		text += '&nbsp;&nbsp;<button id="button2" class="btn btn-default" onclick="javascript:appElem2()" type="button"\
+		style="background-color:transparent;height: 50px;width: 200px; margin-left: 0px;margin-top:-7px; padding: 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
+		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">Further <i class="fa fa-arrow-circle-down"></i></button>';
+		div.innerHTML = text;
+		var parentElem = document.getElementById("collapse9");
+		parentElem.appendChild(div);
+		document.getElementById("button1").disabled = 'true';
+	}
+    
+	function appElem2() {
+		var div = document.createElement('div');
+		div.className = 'row';
+		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Choose the necessary parts of speech:</span>';
+		text += '<ul class="list-group">';
+		text += '<li class="list-group-item"><label style="text-align: left; color: red;height: 50px;width: 200px;"><input type="checkbox" style="height: 10px;" onClick="toggle3(this)">&nbsp;&nbsp;&nbsp;Select&nbsp;all</label></li>';
+		{% for elem in pos %}
+			text += '<li class="list-group-item">' + '<label style="text-align: left; color: black;height: 50px;width: 200px;">' + '<input type="checkbox" value="' + {{ elem|safe }} + '" name="pos" style="height: 10px;">' + '&nbsp;&nbsp;&nbsp;' + {{ elem|safe }} + '</label></li>';
+		{% endfor %}		
+		text += '<li class="list-group-item">\
+		<button id="button3" class="btn btn-default" onclick="javascript:appElem3()" type="button"\
+		style="background-color:transparent;height: 50px;width: 200px; margin-left: -10px;margin-top:-7px; padding: 0px 0px 65px 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
+		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">Further <i class="fa fa-arrow-circle-down"></i></button></li>';
+		text += '</ul>';
+		div.innerHTML = text;	
+		var parentElem = document.getElementById("collapse9");
+		parentElem.appendChild(div);
+		document.getElementById("button2").disabled = 'true';
+	}
+	
+	function appElem3() {
+		var div = document.createElement('div');
+		div.className = 'row';
+		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Choose the necessary roles:</span>';
+		text += '<ul class="list-group">';
+		text += '<li class="list-group-item"><label style="text-align: left; color: red;height: 50px;width: 200px;"><input type="checkbox" style="height: 10px;" onClick="toggle4(this)">&nbsp;&nbsp;&nbsp;Select&nbsp;all</label></li>';
+		{% for elem in roles %}
+			text += '<li class="list-group-item">' + '<label style="text-align: left; color: black;height: 50px;width: 200px;">' + '<input type="checkbox" value="' + {{ elem|safe }} + '" name="role" style="height: 10px;">' + '&nbsp;&nbsp;&nbsp;' + {{ elem|safe }} + '</label></li>';
+		{% endfor %}
+		text += '<li class="list-group-item">\
+		<button id="button4" class="btn btn-default" onclick="javascript:appElem4()" type="button"\
+		style="background-color:transparent;height: 50px;width: 200px; margin-left: -10px; margin-top:-7px; padding: 0px 0px 65px 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
+		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">Further <i class="fa fa-arrow-circle-down"></i></button></li>';
+		text += '</ul>';
+		div.innerHTML = text;
+		var parentElem = document.getElementById("collapse9");
+		parentElem.appendChild(div);
+		document.getElementById("button3").disabled = 'true';
+	}
+	
+	function appElem4() {
+		var div = document.createElement('div');
+		div.className = 'row';
+		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Choose the necessary auxiliaries:</span>';
+		text += '<ul class="list-group">';
+		text += '<li class="list-group-item"><label style="text-align: left; color: red;height: 50px;width: 200px;"><input type="checkbox" style="height: 10px;" onClick="toggle5(this)">&nbsp;&nbsp;&nbsp;Select&nbsp;all</label></li>';
+		{% for elem in auxs %}
+			text += '<li class="list-group-item">' + '<label style="text-align: left; color: black;height: 50px;width: 200px;">' + '<input type="checkbox" value="' + {{ elem|safe }} + '" name="aux" style="height: 10px;">' + '&nbsp;&nbsp;&nbsp;' + {{ elem|safe }} + '</label></li>';
+		{% endfor %}
+        text += '<li class="list-group-item">\
+		<button id="button5" class="btn btn-default" onclick="javascript:appElem5()" type="button"\
+		style="background-color:transparent;height: 50px;width: 200px; margin-left: -10px;margin-top:-7px; padding: 0px 0px 65px 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
+		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">Further <i class="fa fa-arrow-circle-down"></i></button></li>';
+		text += '</ul>';
+		div.innerHTML = text;
+		var parentElem = document.getElementById("collapse9");
+		parentElem.appendChild(div);
+		document.getElementById("button4").disabled = 'true';
+	}
+    
+    function appElem5() {
+		var div = document.createElement('div');
+		div.className = 'row';
+		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Choose the necessary msd:</span>';
+		text += '<ul class="list-group">';
+		text += '<li class="list-group-item"><label style="text-align: left; color: red;height: 50px;width: 200px;"><input type="checkbox" style="height: 10px;" onClick="toggle6(this)">&nbsp;&nbsp;&nbsp;Select&nbsp;all</label></li>';
+		{% for elem in msd %}
+			text += '<li class="list-group-item">' + '<label style="text-align: left; color: black;height: 50px;width: 200px;">' + '<input type="checkbox" value="' + {{ elem|safe }} + '" name="msd" style="height: 10px;">' + '&nbsp;&nbsp;&nbsp;' + {{ elem|safe }} + '</label></li>';
+		{% endfor %}
+        text += '<li class="list-group-item">\
+		<button id="button6" class="btn btn-default" onclick="javascript:appElem6()" type="button"\
+		style="background-color:transparent;height: 50px;width: 200px; margin-left: -10px;margin-top:-7px; padding: 0px 0px 65px 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
+		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">Further <i class="fa fa-arrow-circle-down"></i></button></li>';
+		text += '</ul>';
+		div.innerHTML = text;
+		var parentElem = document.getElementById("collapse9");
+		parentElem.appendChild(div);
+		document.getElementById("button5").disabled = 'true';
+	}
+    
+    function appElem6() {
+		var div = document.createElement('div');
+		div.className = 'row';
+		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Is search strict? </span>';
+		text += '<ul class="list-group">';
+        text += '<li class="list-group-item"><div class="checkbox" style="padding-left:15px"><label><input type="checkbox" value="1" name="strict"></label></div></li>'
+        text += '<li class="list-group-item">\
+        <button id="button7" class="btn btn-default" onclick="javascript:appElem7()" type="button"\
+		style="background-color:transparent;height: 50px;width: 200px; margin-left: -10px;margin-top:-2px; padding: 0px 0px 65px 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
+		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">&nbsp;&nbsp;Further <i class="fa fa-arrow-circle-down"></i></button></li>';
+        text += '</ul>'
+		div.innerHTML = text;
+		var parentElem = document.getElementById("collapse9");
+		parentElem.appendChild(div);
+		document.getElementById("button6").disabled = 'true';
+	}
+
+    function appElem7() {
+		var div = document.createElement('div');
+		div.className = 'row';
+		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Insert the number of results displayed:</span>';
+		text += '<ul class="list-group">';
+        text += '<li class="list-group-item"><div class="perpage" style="padding-left:15px"><label><input type="number" value="5" name="perpage" min="1" style="width:75px;"></label></div></li>'
+       text += '</ul>'
+		div.innerHTML = text;
+		var parentElem = document.getElementById("collapse9");
+		parentElem.appendChild(div);
+		document.getElementById("button7").disabled = 'true';
+	}
+    
+	</script>
+	
+</head>
+<body>
+
+<form action="output1" method="GET" target="_blank">
+    <div class="input-group">
+        <div class="input-group-btn search-panel">
+            <div style="overflow:hidden;">
+                <select name="search_param">
+                    <option value="name">Name</option>
+                    <option value="example">Example</option>
+                    <option value="cefr">CEFR</option>
+                    <option value="number">Number</option>
+                </select>
+            </div>
+        </div>
+        
+        <input type="text" class="form-control" name="construction" placeholder="Search..." autocomplete="off" id="search_key" value="">
+        
+        <span class="input-group-btn">
+            <button class="btn btn-info" type="submit" style="margin-left:0px;width:158.4px;">  Search  </button>
+        </span>
+    </div>
+</form>
+
+<img src="{{ url_for('static', filename='pictures/ruscon.png') }}" style="width:158.4px;margin-top:2px;">
+<a href="help" target="_blank"><img src="{{ url_for('static', filename='pictures/Help.png') }}" style="width:158.4px;float:right;margin-top:2px;"></a>
+
+<br><br><br><br>
+
+<form action="output2" method="GET" target="_blank">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="accordion" class="panel panel-primary behclick-panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Search Russian Construction</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse0">
+                                    <i class="indicator fa fa-caret-right" aria-hidden="true"></i> Last Modified By
+                                </a>
+                            </h4>
+                            <div id="collapse0" class="panel-collapse collapse in">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <label style="color: red;">
+                                                <input type="checkbox" onClick="toggle1(this)">
+                                                Select&nbsp;all
+                                            </label>
+                                        </div>
+                                    </li>
+                                {% for i in range(emails|length) %}
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="{{i}}" name="lMB">
+                                                {{ emails[i] }}
+                                            </label>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse1">
+                                    <i class="indicator fa fa-caret-right" aria-hidden="true"></i> Last Modified
+                                </a>
+                            </h4>
+                            <div id="collapse1" class="panel-collapse collapse in" >
+                                <div class="container">
+                                    <div class="left">
+                                        <fieldset>
+                                            <legend>Choose the date</legend> 
+                                            <div>
+                                                <label for="start" style="width:40%">Start date</label>
+                                                <input type="date" id="start" name="date" value="{{ min_date }}" min="{{ min_date }}" max="{{ max_date }}" />
+                                            </div>
+                                            <div>
+                                                <label for="end" style="width:40%">End date</label>
+                                                <input type="date" id="end" name="date" value="{{ max_date }}" min="{{ min_date }}" max="{{ max_date }}" />
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="right">
+                                        <fieldset>
+                                            <legend>Choose the time</legend>
+                                            <div>
+                                                <label for="start-appt-time">Start time</label>
+                                                <input type="time" id="appt-time" name="appt-time" value="{{ min_time }}" min="{{ min_time }}" max="{{ max_time }}" required />
+                                            </div>
+                                            <div>
+                                                <label for="end-appt-time">End time</label>
+                                                <input type="time" id="appt-time" name="appt-time" value="{{ max_time }}" min="{{ min_time }}" max="{{ max_time }}" required />
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse3">
+                                    <i class="indicator fa fa-caret-right" aria-hidden="true"></i> CEFR
+                                </a>
+                            </h4>
+                            <div id="collapse3" class="panel-collapse collapse in">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <label style="color: red;">
+                                                <input type="checkbox" onClick="toggle2(this)">
+                                                Select&nbsp;all
+                                            </label>
+                                        </div>
+                                    </li>
+                                {% for i in range(cefr|length) %}
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="{{i}}" name="cefr">
+                                                {{ cefr[i] }}
+                                            </label>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse4">
+                                    <i class="indicator fa fa-caret-right" aria-hidden="true"></i> Comment
+                                </a>
+                            </h4>
+                            <div id="collapse4" class="panel-collapse collapse in">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="1" name="comment">
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse5">
+                                    <i class="indicator fa fa-caret-right" aria-hidden="true"></i> Russian definition
+                                </a>
+                            </h4>
+                            <div id="collapse5" class="panel-collapse collapse in">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="1" name="rus_definition" checked>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse6">
+                                    <i class="indicator fa fa-caret-right" aria-hidden="true"></i> English definition
+                                </a>
+                            </h4>
+                            <div id="collapse6" class="panel-collapse collapse in">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="1" name="eng_definition">
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse7">
+                                    <i class="indicator fa fa-caret-right" aria-hidden="true"></i> Norwegian definition
+                                </a>
+                            </h4>
+                            <div id="collapse7" class="panel-collapse collapse in">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="1" name="nor_definition">
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse8">
+                                    <i class="indicator fa fa-caret-right" aria-hidden="true"></i> Reference
+                                </a>
+                            </h4>
+                            <div id="collapse8" class="panel-collapse collapse in">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="1" name="reference">
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse9">
+                                    <i class="indicator fa fa-caret-right" aria-hidden="true"></i> Characteristics
+                                </a>
+                            </h4>
+                        </div>
+                        <div>
+                            <div id="collapse9" class="panel-collapse collapse in">
+                                <button id="button1" class="btn btn-default" onclick="javascript:appElem1()" type="button" style="background-color:transparent; margin-top: 0px; padding:0%; color:inherit; font-size: 25px; white-space: normal;"
+                                onmouseover="this.style.color = 'black';"
+                                onmouseout="this.style.color = 'inherit';">
+                                Choose the characteristics of each element <i class="fa fa-arrow-circle-down" ></i>
+                                </button>
+                            </div>
+                        </div>
+    </div>
+</div>
+					
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<button class="btn btn-success" type="submit">  Search  </button>
+	</div>
+</div>
+</form>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+	<script> 
+	$('collapse9').click(function(){
+		$(this).attr("disabled", "disabled");
+	});
+	</script>
+</body>
+</html>

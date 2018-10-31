@@ -1,0 +1,41 @@
+body {
+    padding: 5%;
+    background-size: contain;
+    background-color: #1111;
+    color: indigo;
+}
+p {
+	padding: 0.5rem;
+	margin-top: 0rem;
+	margin-bottom: 0rem;
+	text-align: center; 
+	font-size: 160%;
+}
+.input-group {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 100%;
+	outline: none;
+}
+.dropdown-menu {
+	padding: 0;
+	border: 0;
+}
+
+* {
+  outline: 0 !important;
+}
+
+::-moz-focus-outer, ::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+button::-moz-focus-inner 
+{
+  border: 0;
+}
+
