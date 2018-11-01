@@ -41,176 +41,6 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 	<link rel="shortcut icon" type="image/x-icon" href="static/pictures/rc.png">
 	
-	<script language="JavaScript">
-		function toggle1(source) {
-			checkboxes = document.getElementsByName('lMB');
-			for(var i=0, n=checkboxes.length; i<n; i++) {
-				checkboxes[i].checked = source.checked;
-			}
-		}
-		
-		function toggle2(source) {
-			checkboxes = document.getElementsByName('cefr');
-			for(var i=0, n=checkboxes.length; i<n; i++) {
-				checkboxes[i].checked = source.checked;
-			}
-		}
-		
-		function toggle3(source) {
-			checkboxes = document.getElementsByName('pos');
-			for(var i=0, n=checkboxes.length; i<n; i++) {
-				checkboxes[i].checked = source.checked;
-			}
-		}
-		
-		function toggle4(source) {
-			checkboxes = document.getElementsByName('role');
-			for(var i=0, n=checkboxes.length; i<n; i++) {
-				checkboxes[i].checked = source.checked;
-			}
-		}
-		
-		function toggle5(source) {
-			checkboxes = document.getElementsByName('aux');
-			for(var i=0, n=checkboxes.length; i<n; i++) {
-				checkboxes[i].checked = source.checked;
-			}
-		}
-        
-        function toggle6(source) {
-			checkboxes = document.getElementsByName('msd');
-			for(var i=0, n=checkboxes.length; i<n; i++) {
-				checkboxes[i].checked = source.checked;
-			}
-		}
-		
-	<!-- collapse9 -->
-    function appElem1() {
-		var div = document.createElement('div');
-		div.className = 'row';
-		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Type the lemmas comma separated:</span>';
-		text += '&nbsp;&nbsp;<input type="text" name="lemmas" style="font-size: 25px;height: 45px;" autocomplete="off">';
-		text += '&nbsp;&nbsp;<button id="button2" class="btn btn-default" onclick="javascript:appElem2()" type="button"\
-		style="background-color:transparent;height: 50px;width: 200px; margin-left: 0px;margin-top:-7px; padding: 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
-		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">Further <i class="fa fa-arrow-circle-down"></i></button>';
-		div.innerHTML = text;
-		var parentElem = document.getElementById("collapse9");
-		parentElem.appendChild(div);
-		document.getElementById("button1").disabled = 'true';
-	}
-    
-	function appElem2() {
-		var div = document.createElement('div');
-		div.className = 'row';
-		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Choose the necessary parts of speech:</span>';
-		text += '<ul class="list-group">';
-		text += '<li class="list-group-item"><label style="text-align: left; color: red;height: 50px;width: 200px;"><input type="checkbox" style="height: 10px;" onClick="toggle3(this)">&nbsp;&nbsp;&nbsp;Select&nbsp;all</label></li>';
-		{% for elem in pos %}
-			text += '<li class="list-group-item">' + '<label style="text-align: left; color: black;height: 50px;width: 200px;">' + '<input type="checkbox" value="' + {{ elem|safe }} + '" name="pos" style="height: 10px;">' + '&nbsp;&nbsp;&nbsp;' + {{ elem|safe }} + '</label></li>';
-		{% endfor %}		
-		text += '<li class="list-group-item">\
-		<button id="button3" class="btn btn-default" onclick="javascript:appElem3()" type="button"\
-		style="background-color:transparent;height: 50px;width: 200px; margin-left: -10px;margin-top:-7px; padding: 0px 0px 65px 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
-		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">Further <i class="fa fa-arrow-circle-down"></i></button></li>';
-		text += '</ul>';
-		div.innerHTML = text;	
-		var parentElem = document.getElementById("collapse9");
-		parentElem.appendChild(div);
-		document.getElementById("button2").disabled = 'true';
-	}
-	
-	function appElem3() {
-		var div = document.createElement('div');
-		div.className = 'row';
-		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Choose the necessary roles:</span>';
-		text += '<ul class="list-group">';
-		text += '<li class="list-group-item"><label style="text-align: left; color: red;height: 50px;width: 200px;"><input type="checkbox" style="height: 10px;" onClick="toggle4(this)">&nbsp;&nbsp;&nbsp;Select&nbsp;all</label></li>';
-		{% for elem in roles %}
-			text += '<li class="list-group-item">' + '<label style="text-align: left; color: black;height: 50px;width: 200px;">' + '<input type="checkbox" value="' + {{ elem|safe }} + '" name="role" style="height: 10px;">' + '&nbsp;&nbsp;&nbsp;' + {{ elem|safe }} + '</label></li>';
-		{% endfor %}
-		text += '<li class="list-group-item">\
-		<button id="button4" class="btn btn-default" onclick="javascript:appElem4()" type="button"\
-		style="background-color:transparent;height: 50px;width: 200px; margin-left: -10px; margin-top:-7px; padding: 0px 0px 65px 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
-		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">Further <i class="fa fa-arrow-circle-down"></i></button></li>';
-		text += '</ul>';
-		div.innerHTML = text;
-		var parentElem = document.getElementById("collapse9");
-		parentElem.appendChild(div);
-		document.getElementById("button3").disabled = 'true';
-	}
-	
-	function appElem4() {
-		var div = document.createElement('div');
-		div.className = 'row';
-		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Choose the necessary auxiliaries:</span>';
-		text += '<ul class="list-group">';
-		text += '<li class="list-group-item"><label style="text-align: left; color: red;height: 50px;width: 200px;"><input type="checkbox" style="height: 10px;" onClick="toggle5(this)">&nbsp;&nbsp;&nbsp;Select&nbsp;all</label></li>';
-		{% for elem in auxs %}
-			text += '<li class="list-group-item">' + '<label style="text-align: left; color: black;height: 50px;width: 200px;">' + '<input type="checkbox" value="' + {{ elem|safe }} + '" name="aux" style="height: 10px;">' + '&nbsp;&nbsp;&nbsp;' + {{ elem|safe }} + '</label></li>';
-		{% endfor %}
-        text += '<li class="list-group-item">\
-		<button id="button5" class="btn btn-default" onclick="javascript:appElem5()" type="button"\
-		style="background-color:transparent;height: 50px;width: 200px; margin-left: -10px;margin-top:-7px; padding: 0px 0px 65px 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
-		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">Further <i class="fa fa-arrow-circle-down"></i></button></li>';
-		text += '</ul>';
-		div.innerHTML = text;
-		var parentElem = document.getElementById("collapse9");
-		parentElem.appendChild(div);
-		document.getElementById("button4").disabled = 'true';
-	}
-    
-    function appElem5() {
-		var div = document.createElement('div');
-		div.className = 'row';
-		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Choose the necessary msd:</span>';
-		text += '<ul class="list-group">';
-		text += '<li class="list-group-item"><label style="text-align: left; color: red;height: 50px;width: 200px;"><input type="checkbox" style="height: 10px;" onClick="toggle6(this)">&nbsp;&nbsp;&nbsp;Select&nbsp;all</label></li>';
-		{% for elem in msd %}
-			text += '<li class="list-group-item">' + '<label style="text-align: left; color: black;height: 50px;width: 200px;">' + '<input type="checkbox" value="' + {{ elem|safe }} + '" name="msd" style="height: 10px;">' + '&nbsp;&nbsp;&nbsp;' + {{ elem|safe }} + '</label></li>';
-		{% endfor %}
-        text += '<li class="list-group-item">\
-		<button id="button6" class="btn btn-default" onclick="javascript:appElem6()" type="button"\
-		style="background-color:transparent;height: 50px;width: 200px; margin-left: -10px;margin-top:-7px; padding: 0px 0px 65px 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
-		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">Further <i class="fa fa-arrow-circle-down"></i></button></li>';
-		text += '</ul>';
-		div.innerHTML = text;
-		var parentElem = document.getElementById("collapse9");
-		parentElem.appendChild(div);
-		document.getElementById("button5").disabled = 'true';
-	}
-    
-    function appElem6() {
-		var div = document.createElement('div');
-		div.className = 'row';
-		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Is search strict? </span>';
-		text += '<ul class="list-group">';
-        text += '<li class="list-group-item"><div class="checkbox" style="padding-left:15px"><label><input type="checkbox" value="1" name="strict"></label></div></li>'
-        text += '<li class="list-group-item">\
-        <button id="button7" class="btn btn-default" onclick="javascript:appElem7()" type="button"\
-		style="background-color:transparent;height: 50px;width: 200px; margin-left: -10px;margin-top:-2px; padding: 0px 0px 65px 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
-		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">&nbsp;&nbsp;Further <i class="fa fa-arrow-circle-down"></i></button></li>';
-        text += '</ul>'
-		div.innerHTML = text;
-		var parentElem = document.getElementById("collapse9");
-		parentElem.appendChild(div);
-		document.getElementById("button6").disabled = 'true';
-	}
-
-    function appElem7() {
-		var div = document.createElement('div');
-		div.className = 'row';
-		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Insert the number of results displayed:</span>';
-		text += '<ul class="list-group">';
-        text += '<li class="list-group-item"><div class="perpage" style="padding-left:15px"><label><input type="number" value="5" name="perpage" min="1" style="width:75px;"></label></div></li>'
-       text += '</ul>'
-		div.innerHTML = text;
-		var parentElem = document.getElementById("collapse9");
-		parentElem.appendChild(div);
-		document.getElementById("button7").disabled = 'true';
-	}
-    
-	</script>
-	
 </head>
 <body>
 
@@ -481,6 +311,175 @@
 	$('collapse9').click(function(){
 		$(this).attr("disabled", "disabled");
 	});
+	</script>
+    <script language="JavaScript">
+		function toggle1(source) {
+			checkboxes = document.getElementsByName('lMB');
+			for(var i=0, n=checkboxes.length; i<n; i++) {
+				checkboxes[i].checked = source.checked;
+			}
+		}
+		
+		function toggle2(source) {
+			checkboxes = document.getElementsByName('cefr');
+			for(var i=0, n=checkboxes.length; i<n; i++) {
+				checkboxes[i].checked = source.checked;
+			}
+		}
+		
+		function toggle3(source) {
+			checkboxes = document.getElementsByName('pos');
+			for(var i=0, n=checkboxes.length; i<n; i++) {
+				checkboxes[i].checked = source.checked;
+			}
+		}
+		
+		function toggle4(source) {
+			checkboxes = document.getElementsByName('role');
+			for(var i=0, n=checkboxes.length; i<n; i++) {
+				checkboxes[i].checked = source.checked;
+			}
+		}
+		
+		function toggle5(source) {
+			checkboxes = document.getElementsByName('aux');
+			for(var i=0, n=checkboxes.length; i<n; i++) {
+				checkboxes[i].checked = source.checked;
+			}
+		}
+        
+        function toggle6(source) {
+			checkboxes = document.getElementsByName('msd');
+			for(var i=0, n=checkboxes.length; i<n; i++) {
+				checkboxes[i].checked = source.checked;
+			}
+		}
+		
+	<!-- collapse9 -->
+    function appElem1() {
+		var div = document.createElement('div');
+		div.className = 'row';
+		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Type the lemmas comma separated:</span>';
+		text += '&nbsp;&nbsp;<input type="text" name="lemmas" style="font-size: 25px;height: 45px;" autocomplete="off">';
+		text += '&nbsp;&nbsp;<button id="button2" class="btn btn-default" onclick="javascript:appElem2()" type="button"\
+		style="background-color:transparent;height: 50px;width: 200px; margin-left: 0px;margin-top:-7px; padding: 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
+		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">Further <i class="fa fa-arrow-circle-down"></i></button>';
+		div.innerHTML = text;
+		var parentElem = document.getElementById("collapse9");
+		parentElem.appendChild(div);
+		document.getElementById("button1").disabled = 'true';
+	}
+    
+	function appElem2() {
+		var div = document.createElement('div');
+		div.className = 'row';
+		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Choose the necessary parts of speech:</span>';
+		text += '<ul class="list-group">';
+		text += '<li class="list-group-item"><label style="text-align: left; color: red;height: 50px;width: 200px;"><input type="checkbox" style="height: 10px;" onClick="toggle3(this)">&nbsp;&nbsp;&nbsp;Select&nbsp;all</label></li>';
+		{% for elem in pos %}
+			text += '<li class="list-group-item">' + '<label style="text-align: left; color: black;height: 50px;width: 200px;">' + '<input type="checkbox" value="' + {{ elem|safe }} + '" name="pos" style="height: 10px;">' + '&nbsp;&nbsp;&nbsp;' + {{ elem|safe }} + '</label></li>';
+		{% endfor %}		
+		text += '<li class="list-group-item">\
+		<button id="button3" class="btn btn-default" onclick="javascript:appElem3()" type="button"\
+		style="background-color:transparent;height: 50px;width: 200px; margin-left: -10px;margin-top:-7px; padding: 0px 0px 65px 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
+		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">Further <i class="fa fa-arrow-circle-down"></i></button></li>';
+		text += '</ul>';
+		div.innerHTML = text;	
+		var parentElem = document.getElementById("collapse9");
+		parentElem.appendChild(div);
+		document.getElementById("button2").disabled = 'true';
+	}
+	
+	function appElem3() {
+		var div = document.createElement('div');
+		div.className = 'row';
+		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Choose the necessary roles:</span>';
+		text += '<ul class="list-group">';
+		text += '<li class="list-group-item"><label style="text-align: left; color: red;height: 50px;width: 200px;"><input type="checkbox" style="height: 10px;" onClick="toggle4(this)">&nbsp;&nbsp;&nbsp;Select&nbsp;all</label></li>';
+		{% for elem in roles %}
+			text += '<li class="list-group-item">' + '<label style="text-align: left; color: black;height: 50px;width: 200px;">' + '<input type="checkbox" value="' + {{ elem|safe }} + '" name="role" style="height: 10px;">' + '&nbsp;&nbsp;&nbsp;' + {{ elem|safe }} + '</label></li>';
+		{% endfor %}
+		text += '<li class="list-group-item">\
+		<button id="button4" class="btn btn-default" onclick="javascript:appElem4()" type="button"\
+		style="background-color:transparent;height: 50px;width: 200px; margin-left: -10px; margin-top:-7px; padding: 0px 0px 65px 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
+		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">Further <i class="fa fa-arrow-circle-down"></i></button></li>';
+		text += '</ul>';
+		div.innerHTML = text;
+		var parentElem = document.getElementById("collapse9");
+		parentElem.appendChild(div);
+		document.getElementById("button3").disabled = 'true';
+	}
+	
+	function appElem4() {
+		var div = document.createElement('div');
+		div.className = 'row';
+		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Choose the necessary auxiliaries:</span>';
+		text += '<ul class="list-group">';
+		text += '<li class="list-group-item"><label style="text-align: left; color: red;height: 50px;width: 200px;"><input type="checkbox" style="height: 10px;" onClick="toggle5(this)">&nbsp;&nbsp;&nbsp;Select&nbsp;all</label></li>';
+		{% for elem in auxs %}
+			text += '<li class="list-group-item">' + '<label style="text-align: left; color: black;height: 50px;width: 200px;">' + '<input type="checkbox" value="' + {{ elem|safe }} + '" name="aux" style="height: 10px;">' + '&nbsp;&nbsp;&nbsp;' + {{ elem|safe }} + '</label></li>';
+		{% endfor %}
+        text += '<li class="list-group-item">\
+		<button id="button5" class="btn btn-default" onclick="javascript:appElem5()" type="button"\
+		style="background-color:transparent;height: 50px;width: 200px; margin-left: -10px;margin-top:-7px; padding: 0px 0px 65px 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
+		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">Further <i class="fa fa-arrow-circle-down"></i></button></li>';
+		text += '</ul>';
+		div.innerHTML = text;
+		var parentElem = document.getElementById("collapse9");
+		parentElem.appendChild(div);
+		document.getElementById("button4").disabled = 'true';
+	}
+    
+    function appElem5() {
+		var div = document.createElement('div');
+		div.className = 'row';
+		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Choose the necessary msd:</span>';
+		text += '<ul class="list-group">';
+		text += '<li class="list-group-item"><label style="text-align: left; color: red;height: 50px;width: 200px;"><input type="checkbox" style="height: 10px;" onClick="toggle6(this)">&nbsp;&nbsp;&nbsp;Select&nbsp;all</label></li>';
+		{% for elem in msd %}
+			text += '<li class="list-group-item">' + '<label style="text-align: left; color: black;height: 50px;width: 200px;">' + '<input type="checkbox" value="' + {{ elem|safe }} + '" name="msd" style="height: 10px;">' + '&nbsp;&nbsp;&nbsp;' + {{ elem|safe }} + '</label></li>';
+		{% endfor %}
+        text += '<li class="list-group-item">\
+		<button id="button6" class="btn btn-default" onclick="javascript:appElem6()" type="button"\
+		style="background-color:transparent;height: 50px;width: 200px; margin-left: -10px;margin-top:-7px; padding: 0px 0px 65px 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
+		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">Further <i class="fa fa-arrow-circle-down"></i></button></li>';
+		text += '</ul>';
+		div.innerHTML = text;
+		var parentElem = document.getElementById("collapse9");
+		parentElem.appendChild(div);
+		document.getElementById("button5").disabled = 'true';
+	}
+    
+    function appElem6() {
+		var div = document.createElement('div');
+		div.className = 'row';
+		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Is search strict? </span>';
+		text += '<ul class="list-group">';
+        text += '<li class="list-group-item"><div class="checkbox" style="padding-left:15px"><label><input type="checkbox" value="1" name="strict"></label></div></li>'
+        text += '<li class="list-group-item">\
+        <button id="button7" class="btn btn-default" onclick="javascript:appElem7()" type="button"\
+		style="background-color:transparent;height: 50px;width: 200px; margin-left: -10px;margin-top:-2px; padding: 0px 0px 65px 0px; color:inherit; font-size: 25px; white-space: normal; text-align: left; vertical-align:top;"\
+		onmouseover="this.style.color = \'black\';"onmouseout="this.style.color = \'inherit\';">&nbsp;&nbsp;Further <i class="fa fa-arrow-circle-down"></i></button></li>';
+        text += '</ul>'
+		div.innerHTML = text;
+		var parentElem = document.getElementById("collapse9");
+		parentElem.appendChild(div);
+		document.getElementById("button6").disabled = 'true';
+	}
+
+    function appElem7() {
+		var div = document.createElement('div');
+		div.className = 'row';
+		var text = '<span style="color:inherit; font-size: 25px; white-space: normal;">Insert the number of results displayed:</span>';
+		text += '<ul class="list-group">';
+        text += '<li class="list-group-item"><div class="perpage" style="padding-left:15px"><label><input type="number" value="5" name="perpage" min="1" style="width:75px;"></label></div></li>'
+       text += '</ul>'
+		div.innerHTML = text;
+		var parentElem = document.getElementById("collapse9");
+		parentElem.appendChild(div);
+		document.getElementById("button7").disabled = 'true';
+	}
+    
 	</script>
 </body>
 </html>
