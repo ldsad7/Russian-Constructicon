@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
+
 from flask import Flask, render_template, url_for, request, redirect, session
 import json
 import sys
 import re
 from time import strftime, gmtime
-import urllib.request
+import urllib
 import xml.etree.cElementTree as ET
 import os
 import numpy as np
@@ -197,7 +199,7 @@ def output1(page):
         words = (' '.join(words.split('|'))).split()
         with open('input.txt', 'w', encoding='utf-8') as f:
             f.write(' '.join(words))
-        os.system("mystem -id input.txt output.json --eng-gr --format json")
+        os.system("./mystem -id input.txt output.json --eng-gr --format json")
         with open('output.json', 'r', encoding='utf-8') as f:
             words = json.load(f)
         
