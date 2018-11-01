@@ -55,7 +55,7 @@
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-		<link rel="shortcut icon" type="image/x-icon" href="../../static/pictures/rc.png">
+		<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='pictures/rc.png') }}">
 	</head>
 	<body>
     {% from "macros.html" import render_pagination %}
