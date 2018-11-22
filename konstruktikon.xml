@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<!-- $Date: 2018-11-01 01:00:15 +0100 (tor  1 nov 2018) $ -->
+<!-- $Date: 2018-11-09 01:00:13 +0100 (fre  9 nov 2018) $ -->
 <LexicalResource dtdVersion="16">
   <GlobalInformation>
     <feat att="languageCoding" val="ISO 639-3" />
@@ -14510,15 +14510,14 @@
       </Sense>
     </LexicalEntry>
     <LexicalEntry xml:lang="rus">
-      <feat att="lastmodified" val="2018-04-25T15:10:00" />
-      <feat att="lastmodifiedBy"
-      val="kristinabagdasaryan14@gmail.com" />
+      <feat att="lastmodified" val="2018-11-07T13:46:45" />
+      <feat att="lastmodifiedBy" val="mmtsfasman@gmail.com" />
       <Lemma />
       <Sense id="konstruktikon-rus--принять_NP1_за_NP2">
         <feat att="comment"
         val=" за_кого_NP_NP_принимать?_S" />
         <feat att="illustration"
-        val="он принял того мужчина за своего отца" />
+        val="он принял того мужчину за своего отца" />
         <feat att="cefr" val="B2" />
         <feat att="type" val="konstruktion" />
         <feat att="cee" val="принять" />
@@ -24441,7 +24440,7 @@
           <karp:e n="1" name="VP+до+конца,">
             <karp:e n="0" name="Action">ещё не решили</karp:e>
             <karp:text n="1" />
-            <karp:e n="2" name="до+конца.">до конца</karp:e>
+            <karp:e n="2" name="до+конца">до конца</karp:e>
           </karp:e>
           <karp:text n="2">что именно будем делать с этой
           проблемой.</karp:text>
@@ -24453,7 +24452,7 @@
             <karp:e n="0" name="Action">довести начатую
             работу</karp:e>
             <karp:text n="1" />
-            <karp:e n="2" name="до+конца.">до конца</karp:e>
+            <karp:e n="2" name="до+конца">до конца</karp:e>
             <karp:text n="3" />
           </karp:e>
           <karp:text n="2">.</karp:text>
@@ -26487,7 +26486,7 @@
       </Sense>
     </LexicalEntry>
     <LexicalEntry xml:lang="rus">
-      <feat att="lastmodified" val="2018-06-29T13:57:25" />
+      <feat att="lastmodified" val="2018-11-06T09:40:34" />
       <feat att="lastmodifiedBy" val="maria.nordrum@uit.no" />
       <Lemma />
       <Sense id="konstruktikon-rus--то_ли_дело_NP">
@@ -26571,8 +26570,7 @@
           и дело</karp:e>
           <karp:text n="2">e.g. беззаботное лето ‘carefree summer’,
           is very different and much better than the other,
-          работать ‘work’. Related constructions in English include
-          XXX.</karp:text>
+          работать ‘work’.</karp:text>
         </definition>
         <definition xml:lang="nor">
           <karp:text n="0">Konstruksjonen sammenligner to ting og
@@ -26581,8 +26579,7 @@
           то и дело</karp:e>
           <karp:text n="2">f.eks. беззаботное лето ‘bekymringsløs
           sommer’, er svært annerledes og mye bedre enn den andre,
-          f.eks. работать ‘arbeide’. Nærliggende konstruksjoner i
-          norsk er XXX.</karp:text>
+          f.eks. работать ‘arbeide’.</karp:text>
         </definition>
         <konst:int_const_elem cat="NounP" name="NP" role="Theme" />
         <konst:int_const_elem lu="то" name="то" role="то" />
@@ -28172,7 +28169,7 @@
       </Sense>
     </LexicalEntry>
     <LexicalEntry xml:lang="rus">
-      <feat att="lastmodified" val="2018-06-29T13:43:50" />
+      <feat att="lastmodified" val="2018-11-06T09:39:07" />
       <feat att="lastmodifiedBy" val="maria.nordrum@uit.no" />
       <Lemma />
       <Sense id="konstruktikon-rus--чтоб_(чтобы)_Pron_V!">
@@ -28247,9 +28244,9 @@
         <definition xml:lang="eng">
           <karp:text n="0">This construction expresses that it
           would be extremely untypical of</karp:text>
-          <karp:e n="1" name="Participant">X</karp:e>
+          <karp:e n="1" name="Participant">someone</karp:e>
           <karp:text n="2">to do</karp:text>
-          <karp:e n="3" name="Action.">Y</karp:e>
+          <karp:e n="3" name="Action.">something</karp:e>
           <karp:text n="4">A closely related construction in
           English is ‘as if X does/would do Y’, e.g. Чтобы он
           опоздал! Он всегда выходит вовремя ‘As if he comes/would
@@ -28258,9 +28255,9 @@
         <definition xml:lang="nor">
           <karp:text n="0">Konstruksjonen uttrykker at det ville
           være ekstremt utypisk for</karp:text>
-          <karp:e n="1" name="Participant">X</karp:e>
+          <karp:e n="1" name="Participant">noen</karp:e>
           <karp:text n="2">å gjøre</karp:text>
-          <karp:e n="3" name="Action.">Y</karp:e>
+          <karp:e n="3" name="Action.">noe</karp:e>
           <karp:text n="4">En nærliggende konstruksjon i norsk er
           ‘som om X ville gjøre/ville gjort Y’, f.eks. Чтобы он
           опоздал! Он всегда выходит вовремя ‘Som om han
@@ -44009,7 +44006,7 @@
         <feat att="cee" val="не" />
         <feat att="cee" val="мочь" />
         <feat att="structure"
-        val="[root [nsubj я] [obj тебя] [xcomp терпеть] [xcomp не] могу!] [xcomp соревноваться]]" />
+        val="[root [nsubj я] [obj тебя] [xcomp терпеть] [xcomp не] могу [xcomp соревноваться]]" />
         <feat att="structure"
         val="[root [nsubj NP] [xcomop терпеть] [advmod не] мочь [  [obj NP] or [xcomp VP]]]" />
         <karp:example>
@@ -50392,9 +50389,8 @@
       </Sense>
     </LexicalEntry>
     <LexicalEntry xml:lang="rus">
-      <feat att="lastmodified" val="2018-02-21T09:25:40" />
-      <feat att="lastmodifiedBy"
-      val="kristinabagdasaryan14@gmail.com" />
+      <feat att="lastmodified" val="2018-11-07T14:20:02" />
+      <feat att="lastmodifiedBy" val="mmtsfasman@gmail.com" />
       <Lemma />
       <Sense id="konstruktikon-rus--NP_VP_NP">
         <feat att="illustration"
@@ -50440,7 +50436,7 @@
             <karp:g n="5" />
             <karp:text n="6" />
           </karp:e>
-          <karp:text n="1">сверх надобности</karp:text>
+          <karp:text n="1">сверх надобности.</karp:text>
         </karp:example>
         <definition>
           <karp:text n="0">Конструкция выражает, что</karp:text>
@@ -50724,7 +50720,7 @@
           <karp:e n="1" name="VP+до+конца.">
             <karp:e n="0" name="Action">работал в больнице</karp:e>
             <karp:text n="1" />
-            <karp:e n="2" name="до+конца.">до конца</karp:e>
+            <karp:e n="2" name="до+конца">до конца</karp:e>
             <karp:text n="3" />
           </karp:e>
           <karp:text n="2">Даже когда большая часть всех медсестёр

@@ -3,7 +3,7 @@
     <head>
         <style type="text/css">
 			body {
-				font-size: 20px !important;
+				font-size: 25px !important;
 			}
 			table td {
 				border: 0px;
@@ -25,35 +25,37 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
 	<link rel="shortcut icon" type="image/x-icon" href="static/pictures/rc.png">
     </head>
     <body style="color: #000a14;">
         <h1 align="center">HELP</h1>
+        </br>
         <p>
-            <h2>1) Поиск с помощью поисковой строки</h2>
-            <h3>Есть 4 режима поиска, доступные из выпадающего меню:</h3>
-            <h4>A) Поиск по имени конструкции (значение по умолчанию Name):&nbsp;
-            <img src="{{ url_for('static', filename='pictures/Name.png') }}" style="width:158.4px;"></h4>
-            <h5>По запросу возвращается наиболее близкое к введённому название, поэтому запрос может быть неточным.</h5>
-            <h5>К примеру, можно ввести "<span style="color: #ff252b;">Какой ещё NP</span>" и получить соответствующую конструкцию. 
+            <h3>1) Поиск с помощью поисковой строки</h3>
+            <h4>Есть 4 режима поиска, доступные из выпадающего меню:</h4>
+            <h5>A) Поиск по имени конструкции (значение по умолчанию Name):&nbsp;
+            <img src="{{ url_for('static', filename='pictures/Name.png') }}" style="width:10%;"></h4>
+            <h6>По запросу возвращается наиболее близкое к введённому название, поэтому запрос может быть неточным.</h6>
+            <h6>К примеру, можно ввести "<span style="color: #ff252b;">Какой ещё NP</span>" и получить соответствующую конструкцию.
             Однако можно ввести "<span style="color: #ff252b;">Какой ещё</span>" и получить ту же конструкцию, несмотря на неточное совпадение,
-            поскольку она оказывается ближе всего к запросу.</h5>
-            <h5>При вводе "<span style="color: #ff252b;">NP1 по NP2</span>" (при поиске обязательно нужно нумеровать одинаковые сущности)
+            поскольку она оказывается ближе всего к запросу.</h6>
+            <h6>При вводе "<span style="color: #ff252b;">NP1 по NP2</span>" (при поиске обязательно нужно нумеровать одинаковые сущности)
             наиболее близкими оказываются сразу две конструкции: 
             "<span style="color: #ff252b;">NP1 VP по NP2</span>" и "<span style="color: #ff252b;">По Num (NP1/NP2) NP3</span>", 
-            поскольку в каждой из них есть единицы из запроса.</h5>
+            поскольку в каждой из них есть единицы из запроса.</h6>
             </br>
-            <h4>Б) Поиск по примеру конструкции (значение Example): &nbsp;
-            <img src="{{ url_for('static', filename='pictures/Example.png') }}" style="width:158.4px;"></h4>
-            <h5>По запросу возвращаются наиболее похожие на этот пример конструкции.</h5>
-            <h5>Важно, чтобы контекст не был слишком широким, поскольку в противном случае возможны нерелевантные результаты.</h5>
-            <h5>К примеру, можно ввести "<span style="color: #ff252b;">парень лет двадцати</span>" и получить
-            конструкцию "<span style="color: #ff252b;">NP лет Num</span>".</h5>
-            <h5>На "<span style="color: #ff252b;">Какой из тебя учитель?</span>" получим конструкцию 
-            "<span style="color: #ff252b;">Какой из Pron NP?</span>".</h5>
-            <h5>Поиск по данному параметру вызывает консольное приложение <span style="color: #ff252b;">MyStem</span>.</h5>
-            </br>
+            <h5>Б) Поиск по примеру конструкции (значение Example): &nbsp;
+            <img src="{{ url_for('static', filename='pictures/Example.png') }}" style="width:10%;"></h4>
+            <h6>По запросу возвращаются наиболее похожие на этот пример конструкции.</h6>
+            <h6>Важно, чтобы контекст не был слишком широким, поскольку в противном случае возможны нерелевантные результаты.</h6>
+            <h6>К примеру, можно ввести "<span style="color: #ff252b;">парень лет двадцати</span>" и получить
+            конструкцию "<span style="color: #ff252b;">NP лет Num</span>".</h6>
+            <h6>На "<span style="color: #ff252b;">Какой из тебя учитель?</span>" получим конструкцию 
+            "<span style="color: #ff252b;">Какой из Pron NP?</span>".</h6>
+            <h6>Поиск по данному параметру вызывает консольное приложение <span style="color: #ff252b;">MyStem</span>.</h6>
+            
+            <!--
             <h4>В) Поиск по уровню конструкции в CEFR (значение CEFR): &nbsp;
             <img src="{{ url_for('static', filename='pictures/CEFR.png') }}" style="width:158.4px;"></h4>
             <h5>По запросу возвращаются конструкции соответствующих уровней.</h5>
@@ -70,94 +72,43 @@
             "<span style="color: #ff252b;">234:240</span>" вернёт конструкции
             с номерами с 234 по 239, а "<span style="color: #ff252b;">234:240:2</span>" вернёт конструкции с номерами 234, 236, 238.
             Срез работает аналогично python-овскому range.</h5>
+            -->
         </p>
         </br>
         <p>
-            <h2>2) Сложный поиск с помощью выбора конкретных параметров:
-            <img src="{{ url_for('static', filename='pictures/Search.png') }}" style="height:34px;"></h2>
-            <h3>Есть 9 параметров поиска, которые мы можем специфицировать.
-            После настройки каждого параметра, можно схлопнуть строчку,
+            <h3>2) Сложный поиск с помощью выбора конкретных параметров:
+            </br></br>
+            <h4>Есть 7 параметров поиска, которые мы можем специфицировать.</h3>
+            <h4>После настройки каждого параметра, можно схлопнуть строчку,
             при этом настроенные параметры сохранятся.</h3>
             </br>
-            <h4>A)
-            <img src="{{ url_for('static', filename='pictures/LastModifiedBy.png') }}" style="height:34px;"></h4>
-            <h5>
-            Здесь мы можем выбрать, конструкции под чьей редакцией мы хотим посмотреть.
-            <img src="{{ url_for('static', filename='pictures/author_checkboxes.png') }}" style="width:100%;">
-            </h5>
-            <h5>
-            Есть 10 человек, которые редактировали базу. Можно выбрать сразу их всех.
-            Если мы не хотим как-то подразделять конструкции на основании этого признака, 
-            то можно нажать "Select all" или не выбирать ничего (это эквивалентные операции).
-            </h5>
-            </br>
-            <h4>Б)
-            <img src="{{ url_for('static', filename='pictures/LastModified.png') }}" style="height:34px;"></h4>
-            <h5>
-            Здесь мы можем выбрать конструкции, которые были отредактированы со Start date по End date и со Start time по End time:
-            <img src="{{ url_for('static', filename='pictures/date_checkboxes.png') }}" style="width:100%;">
-            </h5>
-            <h5>
-            Например, мы можем выбрать все конструкции, которые были добавлены в 2017 году,
-            изменив "<span style="color: #ff252b;">End date</span>" на "<span style="color: #ff252b;">31.12.2017</span>".
-            </h5>
-            <h5>
-            Время и даты автоматически установлены так, чтобы под эти интервалы подпадали все возможные конструкции,
-            т.е. если там ничего не менять, то это не будет влиять на нашу выдачу.
-            </h5>
-            </br>
-            <h4>В)
-            <img src="{{ url_for('static', filename='pictures/CEFR_.png') }}" style="height:34px;"></h4>
-            <h5>
-            Здесь можно выбрать, какого уровня конструкции по CEFR мы хотим вывести.
-            <img src="{{ url_for('static', filename='pictures/cefr_checkboxes.png') }}" style="width:100%;">
-            </h5>
-            </br>
-            <h5>
+            <h5>A)
+            <img src="{{ url_for('static', filename='pictures/CEFR_.png') }}" style="width:50%;"></h4>
+            <h6>
+            Здесь можно выбрать, какого уровня конструкции по CEFR мы хотим вывести:
+            <img src="{{ url_for('static', filename='pictures/cefr_checkboxes.png') }}" style="width:50%;">
+            </h6>
+            <h6>
             Чтобы выбрать все, можно нажать "Select all" или ничего не выбирать.
-            </h5>
+            </h6>
             </br>
-            <h4>
+            <h6>
             Далее идут параметры, выбирая которые, мы ограничиваем результат
             только теми конструкциями, в которых есть соответствующее поле.
             Если оставить checkbox не отмеченным, то выведутся
             все конструкции безотносительно к тому, есть у соответствующих
             конструкций это поле или нет.
-            </h4>
-            <h4>Г)
-            <img src="{{ url_for('static', filename='pictures/Comment.png') }}" style="height:34px;"></h4>
-            <h5>
-            Здесь можно выбрать только те конструкции, для которых приведён комментарий.
-            </h5>
+            </h6>
+            <h5>B)
+            <img src="{{ url_for('static', filename='pictures/Definitions.png') }}" style="height:30px;"></h5>
+            <h6>
+            Здесь можно выбрать только те конструкции, для которых приведено определение на русском, английском или норвежском языке.
+            </h6>
             </br>
-            <h4>Д)
-            <img src="{{ url_for('static', filename='pictures/RussianDefinition.png') }}" style="height:34px;"></h4>
-            <h5>
-            Здесь можно выбрать только те конструкции, для которых приведено определение на русском языке.
-            </h5>
-            </br>
-            <h4>Е)
-            <img src="{{ url_for('static', filename='pictures/EnglishDefinition.png') }}" style="height:34px;"></h4>
-            <h5>
-            Здесь можно выбрать только те конструкции, для которых приведено определение на английском языке.
-            </h5>
-            </br>
-            <h4>Ж)
-            <img src="{{ url_for('static', filename='pictures/NorwegianDefinition.png') }}" style="height:34px;"></h4>
-            <h5>
-            Здесь можно выбрать только те конструкции, для которых приведено определение на норвежском языке.
-            </h5>
-            </br>
-            <h4>З)
-            <img src="{{ url_for('static', filename='pictures/Reference.png') }}" style="height:34px;"></h4>
-            <h5>
-            Здесь можно выбрать только те конструкции, для которых приведена ссылка.
-            </h5>
-            </br>
-            <h4>И)
+            <h5>C)
             <img src="{{ url_for('static', filename='pictures/Characteristics.png') }}" style="height:34px;">
-            </h4>
-            <h5>
+            </h5>
+            <h6>
             Здесь производится поиск по многим параметрам.
             Поиск по конструкциям обеспечивается не последовательным
             выбором для каждой из словоформ в конструкции, а "совокупным"
@@ -166,108 +117,136 @@
             будут правильно отнесены к соответствующим частям речи:
             например, у глагола не может быть характеристики падеж,
             так что это никак не повлияет на выбор глагола, и наоборот.
-            </h5>
+            </h6>
             </br>
-            <h5>
-            После того, как мы нажмём на инструктирующую строчку
-            <img src="{{ url_for('static', filename='pictures/choose_the_chars.png') }}" style="width:50%;">,
-            </h5>
-            <h5>
-            появляется окошко с возможностью введения лемм:
-            <img src="{{ url_for('static', filename='pictures/lemmas.png') }}" style="width:100%;">
-            </h5>
-            <h5>
-            К примеру, мы можем ввести лемму "<span style="color: #ff252b;">год</span>" и нажать "<span style="color: #ff252b;">Search</span>", 
+            <h6>
+            Инструктирующая строчка:
+            <img src="{{ url_for('static', filename='pictures/choose_the_chars.png') }}" style="width:35%;">
+            </h6>
+            <h6>
+            Возможность введения лемм:
+            <img src="{{ url_for('static', filename='pictures/lemmas.png') }}" style="width:50%;">
+            </h6>
+            <h6>
+            К примеру, мы можем ввести лемму "<span style="color: #ff252b;">год</span>" и нажать "<span style="color: #ff252b;">Search</span>",
             что вернёт нам все конструкции, содержащие в себе лемму "<span style="color: #ff252b;">год</span>".
-            </h5>
-            <h5>
+            </h6>
+            <h6>
             Также можно ввести несколько лемм, например, "<span style="color: #ff252b;">год, дать</span>", и тогда
             выведутся все конструкции, содержащие в себе хотя бы одну из этих лемм.
-            </h5>
-            </br>
-            <h5>
-            Если мы не хотим специфицировать леммы, то можно нажать на "<span style="color: #ff252b;">Further</span>",
-            где можно выбрать те части речи, на которые мы хотим посмотреть:
-            <img src="{{ url_for('static', filename='pictures/pos.png') }}" style="width:100%;">
-            </h5>
-            <h5>
+            </h6>
+            <h6>
+            Части речи:
+            <img src="{{ url_for('static', filename='pictures/pos.png') }}" style="width:50%;">
+            </h6>
+            <h6>
             Например, можно выбрать "<span style="color: #ff252b;">Noun</span>" и "<span style="color: #ff252b;">NounP</span>", 
             что вернёт нам все конструкции, где есть либо "<span style="color: #ff252b;">Noun</span>", либо "<span style="color: #ff252b;">NounP</span>".
-            </h5>
-            <h5>
+            </h6>
+            <h6>
             Можно ничего не выбирать, что будет соответствовать тому, что мы рассматриваем все без частеречного ограничения конструкции.
-            </h5>
-            </br>
-            <h5>
-            Нажмём на "<span style="color: #ff252b;">Further</span>".
-            Здесь можно выбрать необходимые семантические роли:
-            <img src="{{ url_for('static', filename='pictures/roles.png') }}" style="width:100%;">
-            </h5>
-            </br>
-            <h5>
-            Нажмём на "<span style="color: #ff252b;">Further</span>".
-            Здесь можно выбрать необходимые дополнительные сведения:
-            <img src="{{ url_for('static', filename='pictures/auxs.png') }}" style="width:100%;">
-            </h5>
-            </br>
-            <h5>
-            Нажмём на "<span style="color: #ff252b;">Further</span>".
-            Здесь можно выбрать необходимые словоизменительные характеристики:
-            <img src="{{ url_for('static', filename='pictures/msd.png') }}" style="width:100%;">
-            </h5>
-            </br>
-            <h5>
-            Нажмём на "<span style="color: #ff252b;">Further</span>".
+            </h6>
+            <h6>
+            Семантические роли:
+            <img src="{{ url_for('static', filename='pictures/roles.png') }}" style="width:60%;">
+            </h6>
+            <h6>
+            Дополнительные сведения:
+            <img src="{{ url_for('static', filename='pictures/auxs.png') }}" style="width:50%;">
+            </h6>
+            <h6>
+            Cловоизменительные характеристики:
+            <img src="{{ url_for('static', filename='pictures/msd.png') }}" style="width:50%;">
+            </h6>
+            <h6>
             Если здесь поставить галочку напротив "<span style="color: #ff252b;">Is search strict?</span>", то будут
             найдены наиболее близкие конструкции в соответствии с выбранными
             параметрами.
             Так, если мы теперь введём леммы "<span style="color: #ff252b;">дать, год</span>" с галочкой
             напротив "<span style="color: #ff252b;">Is search strict?</span>", то вернётся только одна конструкция,
             содержащая обе этих леммы.
-            </h5>
-            <h5>
+            </h6>
+            <h6>
             Аналогично для всех остальных параметров: если мы хотим получить
             конструкцию, в которой должны быть SCONJ и Particle, то, выбрав их, получим
             конструкцию "<span style="color: #ff252b;">Хоть SCONJ</span>".
-            <img src="{{ url_for('static', filename='pictures/strict.png') }}" style="width:50%;">
-            </h5>
-            <h5>
+            <img src="{{ url_for('static', filename='pictures/strict.png') }}" style="width:25%;">
+            </h6>
+            <h6>
             В большинстве случае лучше выбирать "<span style="color: #ff252b;">strict</span>"
             поиск, поскольку без этого нам будут возвращаться все конструкции,
             содержащие хотя бы один из выбранных параметров.
-            </h5>
-            </br>
-            <h5>
-            Нажмём на "<span style="color: #ff252b;">Further</span>".
+            </h6>
+            <h6>
             Здесь можно выбрать количество конструкций на одной странице выдачи.
             По умолчанию стоит 5 конструкций (как и в выдаче при поиске с помощью
             поисковой строки).
-            <img src="{{ url_for('static', filename='pictures/results.png') }}" style="width:50%;">
-            </h5>
+            <img src="{{ url_for('static', filename='pictures/results.png') }}" style="width:40%;">
+            </h6>
+            <h6>D)
+            <img src="{{ url_for('static', filename='pictures/Comment.png') }}" style="height:34px;">
+            </h6>
+            <h6>
+            Здесь можно выбрать только те конструкции, для которых приведён комментарий.
+            </h6>
+            </br>
+            <h5>E)
+            <img src="{{ url_for('static', filename='pictures/Reference.png') }}" style="height:34px;"></h5>
+            <h6>
+            Здесь можно выбрать только те конструкции, для которых приведена ссылка.
+            </h6>
+            </br>
+            <h5>F)
+            <img src="{{ url_for('static', filename='pictures/LastModifiedBy.png') }}" style="height:34px;"></h5>
+            <h6>
+            Здесь мы можем выбрать, конструкции под чьей редакцией мы хотим посмотреть.
+            <img src="{{ url_for('static', filename='pictures/author_checkboxes.png') }}" style="width:50%;">
+            </h6>
+            <h6>
+            Есть 10 человек, которые редактировали базу. Можно выбрать сразу их всех.
+            Если мы не хотим как-то подразделять конструкции на основании этого признака, 
+            то можно нажать "Select all" или не выбирать ничего (это эквивалентные операции).
+            </h6>
+            </br>
+            <h5>G)
+            <img src="{{ url_for('static', filename='pictures/LastModified.png') }}" style="width:15%;"></h5>
+            <h6>
+            Здесь мы можем выбрать конструкции, которые были отредактированы со Start date по End date и со Start time по End time:
+            <img src="{{ url_for('static', filename='pictures/date_checkboxes.png') }}" style="width:50%;">
+            </h6>
+            <h6>
+            Например, мы можем выбрать все конструкции, которые были добавлены в 2017 году,
+            изменив "<span style="color: #ff252b;">End date</span>" на "<span style="color: #ff252b;">31.12.2017</span>".
+            </h6>
+            <h6>
+            Время и даты автоматически установлены так, чтобы под эти интервалы подпадали все возможные конструкции,
+            т.е. если там ничего не менять, то это не будет влиять на нашу выдачу.
+            </h6>
         </p>
-        
+        </br>
         <p>
-        <h2>3) Выдача</h2>
-        <h4>
+        <h3>3) Выдача</h3>
+        <h6>
         Вверху и внизу каждой страницы выдачи жирным указана страница, на
         которой мы сейчас находимся, и страницы, на которые можно перейти,
         нажав на соответствующий номер. Стрелочки справа и слева от номеров
         позволяют перемещаться на одну страницу вправо и влево соответственно.
-        <img src="{{ url_for('static', filename='pictures/numbers.png') }}" style="width:100%;">
-        </h4>
+        <img src="{{ url_for('static', filename='pictures/numbers.png') }}" style="width:50%;">
+        </h6>
         </br>
-        <h4>
+        <h6>
         Каждая конструкция представляет из себя табличку с полями.
         Красным выделены те единицы, для которых дана характеристика.
         Наведя мышку на соответствующую единицу, мы можем получить
         более подробную информацию о ней.
-        <img src="{{ url_for('static', filename='pictures/cons.png') }}" style="width:100%;">
-        </h4>
+        </br></br>
+        <img src="{{ url_for('static', filename='pictures/cons.png') }}" style="width:50%;">
+        </h6>
         </br>
-        <h4>
+        <h6>
         Примеры полей:
-        </h4>
-        <h4>
+        </h6>
+        <h6>
         "<span style="color: #ff252b;">Construction №x</span>" — имя конструкции
         </br>
         "<span style="color: #ff252b;">CEFR</span>" — уровень по CEFR
@@ -279,17 +258,16 @@
         "<span style="color: #ff252b;">Example №x</span>" — пример, в котором отдельные единицы выделены красным
         </br>
         "<span style="color: #ff252b;">Russian/English/Norwegian definition</span>" — определения, в котором также отдельные единицы выделены красным
-        </h4>
+        </h6>
         </br>
-        <h4>
+        <h6>
         Если мы хотим вернуться на главную страницу, можно нажать на кнопку
         "<span style="color: #ff252b;">To the main page</span>", находящуюся в конце каждой страницы выдачи
         и в том числе и здесь.
-        </h4>
+        </h6>
         </p>
-        </br>
         <form action="/" method="GET">
-            <p align="center"><button type="submit" class="btn btn-primary" style="box-shadow: none"><h1 style="margin-top: 10px !important;">To the main page</h1></button></p>
+            <p align="center"><button type="submit" class="btn btn-primary" style="box-shadow: none"><span style="margin-top: 0px !important;">To the main page</span></button></p>
         </form>
     </body>
 </html>

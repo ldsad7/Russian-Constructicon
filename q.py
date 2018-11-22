@@ -9,6 +9,7 @@ import urllib
 import xml.etree.cElementTree as ET
 import os
 import numpy as np
+import random
 from copy import deepcopy
 from math import ceil
 
@@ -38,8 +39,8 @@ class Pagination():
     def has_next(self):
         return self.page < self.total_count
 
-    def iter_pages(self, left_edge=2, left_current=2,
-                   right_current=5, right_edge=2):
+    def iter_pages(self, left_edge=2, left_current=5,
+                   right_current=6, right_edge=-25):
         last = 0
         for num in range(1, self.total_count + 1):
             if num <= left_edge or \
@@ -75,11 +76,16 @@ def main_page():
     roles = sorted(['Actant', 'Action', 'Activity', 'Adverb', 'Agent', 'Assessment', 'Associated', 'Assumption', 'Beneficiary', 'Cause', 'Circumstance', 'Conclusion', 'Condition', 'Container', 'Context', 'Copula', 'Estimation', 'Evaluation', 'Event', 'Event/Action', 'Evidence', 'Experiencer', 'Factor', 'Goal', 'Intensifier', 'Limitation', 'Link', 'Location', 'Number', 'Object', 'Participant', 'Patient', 'Property', 'Protagonist', 'Prototype', 'Purpose', 'Quality', 'Quantity', 'Reason', 'Recipient', 'Referent', 'Result', 'Role', 'Set', 'Situation', 'Source', 'Standard', 'State', 'Stimulus', 'Theme', 'Time', 'Topic'])
     msd = sorted(['Number=Sg', 'Prep=Place', 'Verb=Short', 'Person=3p', 'Adj=Supr', 'Case=Loc', 'Case=Acc', 'Adj=Plen', 'Trans=Tran', 'Case=Abl', 'Mood=Inf', 'Case=Dat', 'Part=Neg', 'Case=Nom', 'Part=Limiting', 'Mood=Imper', 'Tense=Inpraes', 'Adv=Degree', 'Adj=Comp', 'Trans=Intr', 'Verb=Reflexive', 'Tense=Praet', 'Adj=Brev', 'Pron=Interrog', 'Aspect=Pf', 'Mood=Indic', 'Tense=Praes', 'Pron=Neg', 'Gender=n', 'Case=Gen', 'Pron=Personal', 'Person=2p', 'Number=Pl', 'Case=Part', 'Case=Ins', 'Aspect=Ipf', 'Adv=Comp'])
     auxs = sorted(['Animate', 'Facultative', 'Invariable', 'Negative', 'Case=Nom', 'Plural', 'Reflexive', 'Transitive', 'Type=Positive'])
-    return render_template('main_page.html', max_date = date[-1], min_date = date[0], max_time = time[-1][:-3], min_time = time[0][:-3], emails = emails, cefr = cefr, pos = map(json.dumps, pos), roles = map(json.dumps, roles), auxs = map(json.dumps, auxs), msd = map(json.dumps, msd))
+    total = len(dct['id'])
+    return render_template('main_page.html', max_date = date[-1], min_date = date[0], max_time = time[-1][:-3], min_time = time[0][:-3], emails = emails, cefr = cefr, pos = map(json.dumps, pos), roles = map(json.dumps, roles), auxs = map(json.dumps, auxs), msd = map(json.dumps, msd), total=total)
 
 @app.route('/help')
 def help():
     return render_template('help.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route('/output1', defaults={'page': 1})
 @app.route('/output1/page/<page>')
@@ -94,30 +100,9 @@ def output1(page):
     fl = 0
     message = ''
     st = set([i for i in range(len(dct['id']))])
-    if search_param == 'cefr':
-        level = construction.strip().lower()
-        if level == 'all':
-            indices = [i for i in range(len(dct['cefr']))]
-        elif ',' in level:
-            levels = level.split(',')
-            levels = [elem.strip().lower() for elem in levels]
-            for level in levels:
-                if level not in ['a1', 'a2', 'b1', 'b2', 'c1', 'c2']:
-                    fl = 1
-                    message = 'There is no such a set of levels. Try again!'
-                    break
-            if fl == 0:
-                for i, elem in enumerate(dct['cefr']):
-                    if elem in levels:
-                        indices.append(i)
-        elif level in ['a1', 'a2', 'b1', 'b2', 'c1', 'c2']:
-            for i, elem in enumerate(dct['cefr']):
-                if elem == level:
-                    indices.append(i)
-        else:
-            fl = 1
-            message = 'It is not a CEFR level. Try again!'
-    elif search_param == 'number':
+    
+    """
+    if search_param == 'number':
         number = construction.strip().lower()
         fl = 0
         if number == 'all':
@@ -159,7 +144,9 @@ def output1(page):
         else:
             fl = 1
             message = 'There is no such number/s of the constructions in out database. Try again!'
-    elif search_param == 'name':
+    """
+    
+    if search_param == 'name':
         words = construction.strip('.?!').lower()
         if words == 'all':
             indices = [i for i in range(len(dct['cefr']))]
@@ -385,8 +372,12 @@ def output1(page):
     count = len(indices)
     indices = indices[PER_PAGE * (int(page) - 1): PER_PAGE * int(page)]
     pagination = Pagination(page, PER_PAGE, ceil(count / PER_PAGE))
-    return render_template('output.html', lst=indices, dct=dct, fl=fl, message=message, pagination=pagination)    
-
+    rand_strings = []
+    for i in range(len(indices)):
+        s = ''.join(random.choice('abcdefghijklmnopqrstuvwxyz') for x in range(10))
+        rand_strings.append(["panel-collapse collapse " + s, ".panel-collapse.collapse." + s])
+    return render_template('output.html', lst=indices, dct=dct, fl=fl, message=message, pagination=pagination, rand_strings=rand_strings)
+    
 @app.route('/output2/', defaults={'page': 1})
 @app.route('/output2/page/<page>')
 def output2(page):
@@ -409,10 +400,13 @@ def output2(page):
         d['cefr'] = [i for i in range(6)]
     else:
         d['cefr'] = [int(elem) for elem in d['cefr']]
-    for key in ['comment', 'rus_definition', 'eng_definition', 'nor_definition', 'reference']:
+    for key in ['comment', 'reference']:
         if key not in d:
             d[key] = 0
         else:
+            d[key] = 1
+    for i, key in enumerate(['rus_definition', 'eng_definition', 'nor_definition']):
+        if 'definition' in d and str(i+1) in d['definition']:
             d[key] = 1
     if 'lemmas' not in d:
         d['lemmas'] = {}
@@ -440,6 +434,7 @@ def output2(page):
     set_msd = deepcopy(d['msd'])
     set_aux = deepcopy(d['aux'])
     indices = []
+    print(d)
     min = sys.maxsize
     for i in range(len(dct['id'])):
         d['lemmas'] = deepcopy(set_lemmas)
@@ -455,7 +450,7 @@ def output2(page):
             continue
         fl = 0
         for key in ['comment', 'rus_definition', 'eng_definition', 'nor_definition', 'reference']:
-            if d[key] == 1 and not dct[key][i]:
+            if key in d and d[key] == 1 and not dct[key][i]:
                 fl = 1
                 break
         if fl == 1:
@@ -505,12 +500,24 @@ def output2(page):
         fl = 1
         message = 'There is no such a page, sorry. Try again!'
     pagination = Pagination(page, per_page, ceil(count / per_page))
-    return render_template('output.html', lst=indices, dct=dct, fl=fl, message=message, pagination=pagination)
+    rand_strings = []
+    for i in range(len(indices)):
+        s = ''.join(random.choice('abcdefghijklmnopqrstuvwxyz') for x in range(10))
+        rand_strings.append(["panel-collapse collapse " + s, ".panel-collapse.collapse." + s])
+    return render_template('output.html', lst=indices, dct=dct, fl=fl, message=message, pagination=pagination, d=d, rand_strings=rand_strings)
+
+@app.route('/output3/', defaults={'page': 1})
+@app.route('/output3/page/<page>')
+def output3(page):
+    with open('data.json', 'r', encoding='utf-8') as f:
+        dct = json.load(f)
+    pagination = Pagination(page, PER_PAGE, 1)
+    return render_template('output.html', lst=[random.randint(0, len(dct['id']))], dct=dct, fl=0, message='', pagination=pagination, d={}, rand_strings=[["panel-collapse collapse " + 'a', ".panel-collapse.collapse." + 'a']])
 
 def url_for_other_page(page):
     im_dict = request.args
     args = request.args.to_dict()
-    for key in 'date appt-time lMB cefr pos role aux msd'.split():
+    for key in 'date appt-time lMB cefr pos role aux msd definition'.split():
         value = im_dict.getlist(key)
         args[key] = value
     args['page'] = page
@@ -1348,6 +1355,8 @@ def refresh_file():
     text = text.replace('cat="Cl"', 'cat="Clause"')
     text = text.replace('konstruktikon-rus--NP_пребывать_на/в_NP/у_NP', 'konstruktikon-rus--NP1_пребывать_на/в_NP2/у_NP2')
     text = text.replace('<konst:int_const_elem cat=\"NounP\" msd=\"Case=Nom\"\n        name=\"NP\" role=\"Agent\" />\n        <konst:int_const_elem lu=\"пребывать\"\n        msd=\"Aspect=Ipf\" name=\"пребывать\" />\n        <konst:int_const_elem lu=\"на\" name=\"на\" role=\"на\" />\n        <konst:int_const_elem lu=\"в\" name=\"в\" role=\"в\" />\n        <konst:int_const_elem cat=\"NounP\" msd=\"Case=Abl\"\n        name=\"NP\" role=\"Location\" />', '<konst:int_const_elem cat=\"NounP\" msd=\"Case=Nom\"\n        name=\"NP1\" role=\"Agent\" />\n        <konst:int_const_elem lu=\"пребывать\"\n        msd=\"Aspect=Ipf\" name=\"пребывать\" />\n        <konst:int_const_elem lu=\"на\" name=\"на\" role=\"на\" />\n        <konst:int_const_elem lu=\"в\" name=\"в\" role=\"в\" />\n        <konst:int_const_elem cat=\"NounP\" msd=\"Case=Abl\"\n        name=\"NP2\" role=\"Location\" />')
+    text = text.replace('"до+конца.">до конца<', '"до+конца">до конца<')
+    text = text.replace('могу!]', 'могу')
     with open(NAME, 'w', encoding='utf-8') as f:
         f.seek(0)
         f.write(text)
@@ -1364,7 +1373,7 @@ def parseXML(xml_file):
 
     appointments = list(root)
     appt_children = list(appointments[1])[1:]
-    
+
     dct = dict()
     for key in ['lastmodified', 'lastmodifiedBy', 'id',
                 'illustration', 'cefr', 'type', 'cee',
@@ -1426,7 +1435,7 @@ def parseXML(xml_file):
         i = 0
         fl_ = 0
         flag = 0
-        while  i < len(tags) and 'example' not in tags[i].tag:
+        while i < len(tags) and 'example' not in tags[i].tag:
             tmp = tags[i].attrib
             if 'att' not in tmp:
                 i += 1
@@ -1471,7 +1480,7 @@ def parseXML(xml_file):
                 continue
             if att == 'BCxnID':
                 i += 1
-                continue            
+                continue
             dct[att].append(val)
             if att == 'cefr':
                 flag = 1

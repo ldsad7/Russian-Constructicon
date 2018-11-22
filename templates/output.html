@@ -8,72 +8,25 @@
 			body {
 				font-size: 20px !important;
 			}
-			table td {
-				border: 0px;
-				text-align: left;
-			}
-			.keyword {
-				background-color: #ff252b;
-				color: #fff851;
-			}
-			.keyword2 {
-				background-color: #fff851;
-				color: #ff252b;
-			}
-			.keyword:hover {
-				white-space: pre-line;
-			}
-			.keyword2:hover {
-				white-space: pre-line;
-			}
-			.keyword_down {
-				background-color: #ff252b;
-				color: #fff851;
-			}
-			.keyword2_down {
-				background-color: #ff252b;
-				color: #fff851;
-			}
-			.keyword_down:hover {
-				white-space: pre-line;
-			}
-			.keyword2_down:hover {
-				white-space: pre-line;
-			}
-			.tooltip {
-				width: auto;
-				height: auto;
-				white-space: pre-line !important;
-			}
-			.btn {
-				padding: 0rem 1.25rem !important;
-				background-color: #ff252b !important;
-				color: #fff851 !important;
-				border: 0px !important;
-			}
 		</style>
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
 		<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='pictures/rc.png') }}">
 	</head>
 	<body>
     {% from "macros.html" import render_pagination %}
 	{% if fl == 0 %}
         {{ render_pagination(pagination) }}
-        {% for ind in lst %}
+        {% for num in range(lst|length) %}
+            {% set ind = lst[num] %}
             <div class="container">
                 <table class="table table-hover">
                     <thead>
-                      <tr>
-                        <th style="width: 200px;">Property</th>
-                        <th colspan="{{ dct['structure'][ind].split('~')|length + 1 }}">Value</th>
-                      </tr>
-                    </thead>
-                    <tbody>
                         <tr>
-                            <td style="width: 200px;">Construction №{{ind + 1}}</td>
-                            <td colspan="{{ dct['structure'][ind].split('~')|length }}">
+                            <th style="width: 200px;"></th>
+                            <th colspan="{{ dct['structure'][ind].split('~')|length }}">
                         {% if ' -то!' not in dct['id'][ind] and dct['id'][ind] != 'По- XP -ее(ей).' %}
                             {% for i in range(dct['id'][ind].split()|length) %}
                                 {% if '-таки!' in dct['id'][ind] %}
@@ -151,100 +104,116 @@
                         {% else  %}
                             {{ dct['id'][ind].split()[0] }}<span title="{{ dct['names'][ind][dct['id'][ind].split()[1].lower()] }}" class="keyword">{{ dct['id'][ind].split()[1] }}</span>{{ dct['id'][ind].split()[2] }}
                         {% endif %}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr>
+                            <td style="width: 205px;">Russian definition</td>
+                            <td colspan={{ dct['structure'][ind].split('~')|length }}>
+                            {% for j in range(dct['rus_definition'][ind].split()|length) %}
+                                {% if dct['rus_definition'][ind].split()[j].split('_')|length >= 2 %}
+                                    {% if j == dct['rus_definition'][ind].split()|length - 1 and (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] not in ['.', '!', '?', '…'] %}
+                                        {% if (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == '"' and (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[0] == '"' %}
+                                            "<span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[1:-1] }}</span>"
+                                        {% else %}
+                                            <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']') }}</span>.
+                                        {% endif %}
+                                    {% else %}
+                                        {% if ']_Location/' in dct['rus_definition'][ind].split()[j] or '/[' in dct['rus_definition'][ind].split()[j] %}
+                                            {% if dct['rus_definition'][ind].split()[j].split('/')[0][0] == '[' and dct['rus_definition'][ind].split()[j].split('/')[1][0] == '[' %}
+                                                {% if (' '.join(dct['rus_definition'][ind].split()[j].split('/')[1].split('_')[:-1])).strip('[').strip(']')[-1] == ',' %}
+                                                    <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('/')[0].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['rus_definition'][ind].split()[j].split('/')[0].split('_')[:-1])).strip('[').strip(']') }}</span>/<span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('/')[1].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('/')[1].split('_')[:-1])).strip('[').strip(']')[:-1] }}</span>,
+                                                {% else %}
+                                                    <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('/')[0].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['rus_definition'][ind].split()[j].split('/')[0].split('_')[:-1])).strip('[').strip(']') }}</span>/<span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('/')[1].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('/')[1].split('_')[:-1])).strip('[').strip(']') }}</span>
+                                                {% endif %}
+                                            {% elif dct['rus_definition'][ind].split()[j].split('/')[0][0] == '[' %}
+                                                <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('/')[0].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['rus_definition'][ind].split()[j].split('/')[0].split('_')[:-1])).strip('[').strip(']') }}</span>/{{ dct['rus_definition'][ind].split()[j].split('/')[1] }}
+                                            {% elif dct['rus_definition'][ind].split()[j].split('/')[1][0] == '[' %}
+                                                {{ dct['rus_definition'][ind].split()[j].split('/')[0] }}/<span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('/')[1].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['rus_definition'][ind].split()[j].split('/')[1].split('_')[:-1])).strip('[').strip(']') }}</span>
+                                            {% else %}
+                                                {{ dct['rus_definition'][ind].split()[j] }}
+                                            {% endif %}
+                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-2:] == '".' and (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[0] == '"' %}
+                                            "<span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[1:-2] }}</span>".
+                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == ',' %}
+                                            <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-1] }}</span>,
+                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == ';' %}
+                                            <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-1] }}</span>;
+                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == ')' %}
+                                            <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-1] }}</span>)
+                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == '»' and (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[0] == '«' %}
+                                            «<span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[1:-1] }}</span>»
+                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == '.' %}
+                                            <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-1] }}</span>.
+                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == ')' and (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[0] == '(' %}
+                                            (<span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[1:-1] }}</span>)
+                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == ':' %}
+                                            <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-1] }}</span>:
+                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == '"' and (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[0] == '"' %}
+                                            "<span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[1:-1] }}</span>"
+                                        {% else %}
+                                            <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ ( ' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']') }}</span>
+                                        {% endif %}
+                                    {% endif %}
+                                {% else %}
+                                    {% if j == dct['rus_definition'][ind].split()|length - 1 and dct['rus_definition'][ind].split()[j][-1] not in ['.', '!', '?', '…'] %}
+                                        {{ dct['rus_definition'][ind].split()[j] + '.' }}
+                                    {% else %}
+                                        {{ dct['rus_definition'][ind].split()[j] }}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
                             </td>
                         </tr>
                         
+                        {% if dct['eng_definition'][ind] %}
+                            <tr>
+                                <td style="width: 205px;">English definition</td>
+                                <td colspan={{ dct['structure'][ind].split('~')|length }}>
+                                {% for j in range(dct['eng_definition'][ind].split()|length) %}
+                                    {% if dct['eng_definition'][ind].split()[j].split('_')|length >= 2 %}
+                                        {% if j == dct['eng_definition'][ind].split()|length - 1 and (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] not in ['.', '!', '?', '…'] %}
+                                            <span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']') }}</span>.
+                                        {% else %}
+                                            {% if (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-2:] == '’,' %}
+                                                <span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-2] }}</span>’,
+                                            {% elif (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-2:] == '?’' %}
+                                                <span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-2] }}</span>?’
+                                            {% elif (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == ',' %}
+                                                <span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-1] }}</span>,
+                                            {% elif (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == '.' %}
+                                                <span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-1] }}</span>.
+                                            {% elif (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[0] == '"' %}
+                                                "<span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[1:] }}</span>
+                                            {% elif (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[0] == '“' %}
+                                                “<span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[1:] }}</span>
+                                            {% elif (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == '"' and (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[0] == '"' %}
+                                                "<span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[1:] }}</span>"
+                                            {% else %}
+                                                <span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']') }}</span>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% else %}
+                                        {% if j == dct['eng_definition'][ind].split()|length - 1 and dct['eng_definition'][ind].split()[j][-1] not in ['.', '!', '?', '…'] %}
+                                            {{ dct['eng_definition'][ind].split()[j] + '.' }}
+                                        {% else %}
+                                            {{ dct['eng_definition'][ind].split()[j] }}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    
                         <tr>
-                            <td style="width: 200px;">CEFR</td>
-                            <td colspan="{{ dct['structure'][ind].split('~')|length }}">
-                            {{ dct['cefr'][ind].capitalize() }}
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td style="width: 200px;">Illustration</td>
+                            <td style="width: 205px;">Illustration</td>
                             <td colspan="{{ dct['structure'][ind].split('~')|length + 1 }}">{{ dct['illustration'][ind] }}</td>
                         </tr>
-                        
-                            <tr>
-                                <td style="width: 200px;">Structures</td>
-                                
-                        {% for i in range(dct['structure'][ind].split('~')|length) %}
-                            {% if dct['structure'][ind].split('~')[i] != 'None' %}
-                                <td>
-                                    <div id="multi-derevo" >
-                                        Structure №{{i+1}}:
-                                        <li>root</li>
-                                        <ul>
-                                        {% for j in range(1, dct['structure'][ind].split('~')[i].split()|length) %}
-                                            {% if dct['structure'][ind].split('~')[i].split()[j][0] == '[' %}
-                                                {% if dct['structure'][ind].split('~')[i].split()[j][-1] == ']'%}
-                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][1:-1]}}</span></li>
-                                                {% else %}
-                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][1:]}}</span><ul>
-                                                {% endif %}
-                                                
-                                            {% elif dct['structure'][ind].split('~')[i].split()[j][-6:] == ']]]]]]' or dct['structure'][ind].split('~')[i].split()[j][-6:] == ']]]]]]],' %}
-                                                {% if dct['structure'][ind].split('~')[i].split()[j][-1] == ',' %}
-                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-7] + dct['structure'][ind].split('~')[i].split()[j][-1]}}</span></li>
-                                                {% else %}
-                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-6]}}</span></li>
-                                                {% endif %}
-                                                </ul></li></ul></li></ul></li></ul></li></ul></li>
-                                            
-                                            {% elif dct['structure'][ind].split('~')[i].split()[j][-5:] == ']]]]]' or dct['structure'][ind].split('~')[i].split()[j][-5:] == ']]]]],' %}
-                                                {% if dct['structure'][ind].split('~')[i].split()[j][-1] == ',' %}
-                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-6] + dct['structure'][ind].split('~')[i].split()[j][-1]}}</span></li>
-                                                {% else %}
-                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-5]}}</span></li>
-                                                {% endif %}
-                                                </ul></li></ul></li></ul></li></ul></li>
-                                            
-                                            {% elif dct['structure'][ind].split('~')[i].split()[j][-4:] == ']]]]' or dct['structure'][ind].split('~')[i].split()[j][-5:] == ']]]],' %}
-                                                {% if dct['structure'][ind].split('~')[i].split()[j][-1] == ',' %}
-                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-5] + dct['structure'][ind].split('~')[i].split()[j][-1]}}</span></li>
-                                                {% else %}
-                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-4]}}</span></li>
-                                                {% endif %}
-                                                </ul></li></ul></li></ul></li>
-                                            
-                                            {% elif dct['structure'][ind].split('~')[i].split()[j][-3:] == ']]]' or dct['structure'][ind].split('~')[i].split()[j][-4:] == ']]],' %}
-                                                {% if dct['structure'][ind].split('~')[i].split()[j][-1] == ',' %}
-                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-4] + dct['structure'][ind].split('~')[i].split()[j][-1]}}</span></li>
-                                                {% else %}
-                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-3]}}</span></li>
-                                                {% endif %}
-                                                </ul></li></ul></li></ul></li>
-                                            
-                                            {% elif dct['structure'][ind].split('~')[i].split()[j][-2:] == ']]' or dct['structure'][ind].split('~')[i].split()[j][-3:] == ']],' %}
-                                                {% if dct['structure'][ind].split('~')[i].split()[j][-1] == ',' %}
-                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-3] + dct['structure'][ind].split('~')[i].split()[j][-1]}}</span></li>
-                                                {% else %}
-                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-2]}}</span></li>
-                                                {% endif %}
-                                                </ul></li></ul></li>
-                                            
-                                            {% elif dct['structure'][ind].split('~')[i].split()[j][-1:] == ']' or dct['structure'][ind].split('~')[i].split()[j][-2:] == '],'%}
-                                                {% if  dct['structure'][ind].split('~')[i].split()[j][-1] == ',' %}
-                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-2] + dct['structure'][ind].split('~')[i].split()[j][-1]}}</span></li>
-                                                {% else %}
-                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-1]}}</span></li>
-                                                {% endif %}
-                                                </ul></li>
-                                            {% else %}
-                                                <li><span>{{dct['structure'][ind].split('~')[i].split()[j]}}</span></li>
-                                            {% endif %}
-                                        {% endfor %}
-                                        </ul>
-                                    </div>
-                                </td>
-                            {% endif %}
-                        {% endfor %}
-                            </tr>
-                        
                         {% for i in range(dct['examples'][ind]|length) %}
                             <tr>
-                                <td style="width: 200px;">Example №{{i + 1}}</td>
+                                <td style="width: 205px;"></td>
                                 <td colspan="{{ dct['structure'][ind].split('~')|length }}">
                             {% for j in range(dct['examples'][ind][i].split()|length) %}
                                 {% if '[-то]' in dct['examples'][ind][i] and j <= 1 %}
@@ -358,107 +327,125 @@
                                 </td>
                             </tr>
                         {% endfor %}
-                    
-                        <tr>
-                            <td style="width: 200px;">Russian definition</td>
-                            <td colspan={{ dct['structure'][ind].split('~')|length }}>
-                            {% for j in range(dct['rus_definition'][ind].split()|length) %}
-                                {% if dct['rus_definition'][ind].split()[j].split('_')|length >= 2 %}
-                                    {% if j == dct['rus_definition'][ind].split()|length - 1 and (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] not in ['.', '!', '?', '…'] %}
-                                        {% if (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == '"' and (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[0] == '"' %}
-                                            "<span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[1:-1] }}</span>"
-                                        {% else %}
-                                            <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']') }}</span>.
-                                        {% endif %}
-                                    {% else %}
-                                        {% if ']_Location/' in dct['rus_definition'][ind].split()[j] or '/[' in dct['rus_definition'][ind].split()[j] %}
-                                            {% if dct['rus_definition'][ind].split()[j].split('/')[0][0] == '[' and dct['rus_definition'][ind].split()[j].split('/')[1][0] == '[' %}
-                                                {% if (' '.join(dct['rus_definition'][ind].split()[j].split('/')[1].split('_')[:-1])).strip('[').strip(']')[-1] == ',' %}
-                                                    <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('/')[0].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['rus_definition'][ind].split()[j].split('/')[0].split('_')[:-1])).strip('[').strip(']') }}</span>/<span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('/')[1].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('/')[1].split('_')[:-1])).strip('[').strip(']')[:-1] }}</span>,
+                        
+                        
+                            
+                            <tr>
+                                <td style="width: 205px;">Structures (brackets)</td>
+                        {% for i in range(dct['structure'][ind].split('~')|length) %}
+                            {% if dct['structure'][ind].split('~')[i] != 'None' %}
+                                <td>
+                                {{ dct['structure'][ind].split('~')[i] }}
+                                </td>
+                            {% endif %}
+                        {% endfor %}
+                            </tr>
+
+                            <tr>
+                                <td data-toggle="collapse" href="{{ rand_strings[num][1] }}" style="width: 200px;"><i class="indicator fa fa-caret-right" aria-hidden="true"></i> Structures (trees)</td>
+                        {% for i in range(dct['structure'][ind].split('~')|length) %}
+                            {% if dct['structure'][ind].split('~')[i] != 'None' %}
+                                <td>
+                                    <div id="multi-derevo" class="{{ rand_strings[num][0] }}">
+                                        Structure №{{i+1}}:
+                                        <li>root</li>
+                                        <ul>
+                                        {% for j in range(1, dct['structure'][ind].split('~')[i].split()|length) %}
+                                            {% if dct['structure'][ind].split('~')[i].split()[j][0] == '[' %}
+                                                {% if dct['structure'][ind].split('~')[i].split()[j][-1] == ']'%}
+                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][1:-1]}}</span></li>
                                                 {% else %}
-                                                    <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('/')[0].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['rus_definition'][ind].split()[j].split('/')[0].split('_')[:-1])).strip('[').strip(']') }}</span>/<span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('/')[1].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('/')[1].split('_')[:-1])).strip('[').strip(']') }}</span>
+                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][1:]}}</span><ul>
                                                 {% endif %}
-                                            {% elif dct['rus_definition'][ind].split()[j].split('/')[0][0] == '[' %}
-                                                <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('/')[0].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['rus_definition'][ind].split()[j].split('/')[0].split('_')[:-1])).strip('[').strip(']') }}</span>/{{ dct['rus_definition'][ind].split()[j].split('/')[1] }}
-                                            {% elif dct['rus_definition'][ind].split()[j].split('/')[1][0] == '[' %}
-                                                {{ dct['rus_definition'][ind].split()[j].split('/')[0] }}/<span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('/')[1].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['rus_definition'][ind].split()[j].split('/')[1].split('_')[:-1])).strip('[').strip(']') }}</span>
+                                                
+                                            {% elif dct['structure'][ind].split('~')[i].split()[j][-6:] == ']]]]]]' or dct['structure'][ind].split('~')[i].split()[j][-6:] == ']]]]]]],' %}
+                                                {% if dct['structure'][ind].split('~')[i].split()[j][-1] == ',' %}
+                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-7] + dct['structure'][ind].split('~')[i].split()[j][-1]}}</span></li>
+                                                {% else %}
+                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-6]}}</span></li>
+                                                {% endif %}
+                                                </ul></li></ul></li></ul></li></ul></li></ul></li>
+                                            
+                                            {% elif dct['structure'][ind].split('~')[i].split()[j][-5:] == ']]]]]' or dct['structure'][ind].split('~')[i].split()[j][-5:] == ']]]]],' %}
+                                                {% if dct['structure'][ind].split('~')[i].split()[j][-1] == ',' %}
+                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-6] + dct['structure'][ind].split('~')[i].split()[j][-1]}}</span></li>
+                                                {% else %}
+                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-5]}}</span></li>
+                                                {% endif %}
+                                                </ul></li></ul></li></ul></li></ul></li>
+                                            
+                                            {% elif dct['structure'][ind].split('~')[i].split()[j][-4:] == ']]]]' or dct['structure'][ind].split('~')[i].split()[j][-5:] == ']]]],' %}
+                                                {% if dct['structure'][ind].split('~')[i].split()[j][-1] == ',' %}
+                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-5] + dct['structure'][ind].split('~')[i].split()[j][-1]}}</span></li>
+                                                {% else %}
+                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-4]}}</span></li>
+                                                {% endif %}
+                                                </ul></li></ul></li></ul></li>
+                                            
+                                            {% elif dct['structure'][ind].split('~')[i].split()[j][-3:] == ']]]' or dct['structure'][ind].split('~')[i].split()[j][-4:] == ']]],' %}
+                                                {% if dct['structure'][ind].split('~')[i].split()[j][-1] == ',' %}
+                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-4] + dct['structure'][ind].split('~')[i].split()[j][-1]}}</span></li>
+                                                {% else %}
+                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-3]}}</span></li>
+                                                {% endif %}
+                                                </ul></li></ul></li></ul></li>
+                                            
+                                            {% elif dct['structure'][ind].split('~')[i].split()[j][-2:] == ']]' or dct['structure'][ind].split('~')[i].split()[j][-3:] == ']],' %}
+                                                {% if dct['structure'][ind].split('~')[i].split()[j][-1] == ',' %}
+                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-3] + dct['structure'][ind].split('~')[i].split()[j][-1]}}</span></li>
+                                                {% else %}
+                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-2]}}</span></li>
+                                                {% endif %}
+                                                </ul></li></ul></li>
+                                            
+                                            {% elif dct['structure'][ind].split('~')[i].split()[j][-1:] == ']' or dct['structure'][ind].split('~')[i].split()[j][-2:] == '],'%}
+                                                {% if  dct['structure'][ind].split('~')[i].split()[j][-1] == ',' %}
+                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-2] + dct['structure'][ind].split('~')[i].split()[j][-1]}}</span></li>
+                                                {% else %}
+                                                    <li><span>{{dct['structure'][ind].split('~')[i].split()[j][:-1]}}</span></li>
+                                                {% endif %}
+                                                </ul></li>
                                             {% else %}
-                                                {{ dct['rus_definition'][ind].split()[j] }}
+                                                <li><span>{{dct['structure'][ind].split('~')[i].split()[j]}}</span></li>
                                             {% endif %}
-                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-2:] == '".' and (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[0] == '"' %}
-                                            "<span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[1:-2] }}</span>".
-                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == ',' %}
-                                            <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-1] }}</span>,
-                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == ';' %}
-                                            <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-1] }}</span>;
-                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == ')' %}
-                                            <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-1] }}</span>)
-                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == '»' and (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[0] == '«' %}
-                                            «<span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[1:-1] }}</span>»
-                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == '.' %}
-                                            <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-1] }}</span>.
-                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == ')' and (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[0] == '(' %}
-                                            (<span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[1:-1] }}</span>)
-                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == ':' %}
-                                            <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-1] }}</span>:
-                                        {% elif (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == '"' and (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[0] == '"' %}
-                                            "<span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ (' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[1:-1] }}</span>"
-                                        {% else %}
-                                            <span title="{{ ' '.join(dct['rus_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{ ( ' '.join(dct['rus_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']') }}</span>
-                                        {% endif %}
-                                    {% endif %}
-                                {% else %}
-                                    {% if j == dct['rus_definition'][ind].split()|length - 1 and dct['rus_definition'][ind].split()[j][-1] not in ['.', '!', '?', '…'] %}
-                                        {{ dct['rus_definition'][ind].split()[j] + '.' }}
-                                    {% else %}
-                                        {{ dct['rus_definition'][ind].split()[j] }}
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </td>
+                            {% endif %}
+                        {% endfor %}
+                            </div>
+                            </tr>
+                        
+                        <tr>
+                            <td style="width: 205px;">CEFR</td>
+                            <td colspan="{{ dct['structure'][ind].split('~')|length }}">
+                            {{ dct['cefr'][ind].capitalize() }}
                             </td>
                         </tr>
-                        {% if dct['eng_definition'][ind] %}
+                        
+                        {% if dct['comment'][ind] and 'comment' in d and d['comment'] == 1 %}
                             <tr>
-                                <td style="width: 200px;">English definition</td>
-                                <td colspan={{ dct['structure'][ind].split('~')|length }}>
-                                {% for j in range(dct['eng_definition'][ind].split()|length) %}
-                                    {% if dct['eng_definition'][ind].split()[j].split('_')|length >= 2 %}
-                                        {% if j == dct['eng_definition'][ind].split()|length - 1 and (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] not in ['.', '!', '?', '…'] %}
-                                            <span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']') }}</span>.
-                                        {% else %}
-                                            {% if (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-2:] == '’,' %}
-                                                <span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-2] }}</span>’,
-                                            {% elif (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-2:] == '?’' %}
-                                                <span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-2] }}</span>?’
-                                            {% elif (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == ',' %}
-                                                <span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-1] }}</span>,
-                                            {% elif (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == '.' %}
-                                                <span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[:-1] }}</span>.
-                                            {% elif (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[0] == '"' %}
-                                                "<span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[1:] }}</span>
-                                            {% elif (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[0] == '“' %}
-                                                “<span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[1:] }}</span>
-                                            {% elif (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[-1] == '"' and (' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[0] == '"' %}
-                                                "<span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']')[1:] }}</span>"
-                                            {% else %}
-                                                <span title="{{ ' '.join(dct['eng_definition'][ind].split()[j].split('_')[-1].split('+')) }}" class="keyword">{{(' '.join(dct['eng_definition'][ind].split()[j].split('_')[:-1])).strip('[').strip(']') }}</span>
-                                            {% endif %}
-                                        {% endif %}
-                                    {% else %}
-                                        {% if j == dct['eng_definition'][ind].split()|length - 1 and dct['eng_definition'][ind].split()[j][-1] not in ['.', '!', '?', '…'] %}
-                                            {{ dct['eng_definition'][ind].split()[j] + '.' }}
-                                        {% else %}
-                                            {{ dct['eng_definition'][ind].split()[j] }}
-                                        {% endif %}
-                                    {% endif %}
-                                {% endfor %}
-                                </td>
-                                
+                                <td style="width: 205px;">Comment</td>
+                                <td colspan={{ dct['structure'][ind].split('~')|length }}>{{dct['comment'][ind]}}</td>
                             </tr>
                         {% endif %}
-                        {% if dct['nor_definition'][ind] %}
+                        {% if dct['coll'][ind] and 'coll' in d and d['coll'] == 1 %}
                             <tr>
-                                <td style="width: 200px;">Norwegian definition</td>
+                                <td style="width: 205px;">Collocation</td>
+                                <td colspan={{ dct['structure'][ind].split('~')|length }}>{{', '.join(dct['coll'][ind])}}</td>
+                            </tr>
+                        {% endif %}
+                        {% if dct['reference'][ind] and 'reference' in d and d['reference'] == 1 %}
+                            <tr>
+                                <td style="width: 205px;">Reference</td>
+                                <td colspan={{ dct['structure'][ind].split('~')|length }}>{{dct['reference'][ind]}}</td>
+                            </tr>
+                        {% endif %}
+                        
+                        {% if dct['nor_definition'][ind] and 'nor_definition' in d %}
+                            <tr>
+                                <td style="width: 205px;">Norwegian definition</td>
                                 <td colspan={{ dct['structure'][ind].split('~')|length }}>
                                 {% for j in range(dct['nor_definition'][ind].split()|length) %}
                                     {% if dct['nor_definition'][ind].split()[j].split('_')|length >= 2 %}
@@ -492,35 +479,22 @@
                                 </td>
                             </tr>
                         {% endif %}
-                        {% if dct['comment'][ind] %}
-                            <tr>
-                                <td style="width: 200px;">Comment</td>
-                                <td colspan={{ dct['structure'][ind].split('~')|length }}>{{dct['comment'][ind]}}</td>
-                            </tr>
-                        {% endif %}
-                        {% if dct['coll'][ind] %}
-                            <tr>
-                                <td style="width: 200px;">Coll</td>
-                                <td colspan={{ dct['structure'][ind].split('~')|length }}>{{', '.join(dct['coll'][ind])}}</td>
-                            </tr>
-                        {% endif %}
-                        {% if dct['reference'][ind] %}
-                            <tr>
-                                <td style="width: 200px;">Reference</td>
-                                <td colspan={{ dct['structure'][ind].split('~')|length }}>{{dct['reference'][ind]}}</td>
-                            </tr>
-                        {% endif %}
                     </tbody>
                 </table>
             </div>
+            {% if ((num+1)%5 != 0 and (num+1) != lst|length) %}
+                </br></br>
+            {% endif %}
         {% endfor %}
 	{% else %}
 		<h3 align="center">{{message}}</h3>
 	{% endif %}
     {{ render_pagination(pagination) }}
-	<form action="/" method="GET">
-		<p align="center"><button type="submit" class="btn btn-primary"><h1 style="margin-top: 10px !important;">To the main page</h1></button></p>
-	</form>
+    <div class="row" style="display: flex;justify-content: center;">
+        <form action="/" method="GET">
+            <button type="submit" class="btn btn-primary" style="outline: none;"><span style="margin-top: 10px !important;font-size:25px;">To the main page</span></button>
+        </form>
+    </div>
 		
 		<script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
